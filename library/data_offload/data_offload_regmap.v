@@ -38,9 +38,11 @@ module data_offload_regmap #(
 
   parameter ID = 0,
   parameter [ 0:0] MEM_TYPE = 1'b0,
-  parameter [33:0] MEM_SIZE = 1024,
+  parameter MEM_SIZE_LOG2 = 10,
   parameter TX_OR_RXN_PATH = 0,
-  parameter AUTO_BRINGUP = 0) (
+  parameter AUTO_BRINGUP = 0,
+  parameter HAS_BYPASS = 1
+) (
 
   // microprocessor interface
   input                   up_clk,
@@ -77,14 +79,15 @@ module data_offload_regmap #(
   output                  sync,
   output      [ 1:0]      sync_config,
 
-  output reg  [33:0]      src_transfer_length,
+  output      [MEM_SIZE_LOG2-1:0] src_transfer_length,
+  output      [MEM_SIZE_LOG2-1:0] dst_transfer_length,
 
   // FSM control and status
-  input       [ 1:0]      src_fsm_status,
-  input       [ 1:0]      dst_fsm_status,
+  input       [ 4:0]      src_fsm_status,
+  input       [ 3:0]      dst_fsm_status,
 
-  input       [31:0]      sample_count_msb,
-  input       [31:0]      sample_count_lsb
+  input                   src_overflow,
+  input                   dst_underflow
 
 );
 
@@ -101,18 +104,20 @@ module data_offload_regmap #(
   reg           up_sync = 'd0;
   reg   [ 1:0]  up_sync_config = 'd0;
   reg           up_oneshot = 1'b0;
-  reg   [33:0]  up_transfer_length = 'd0;
+  reg   [MEM_SIZE_LOG2-1:0]  up_transfer_length = 'd0;
+  reg           up_src_overflow = 1'b0;
+  reg           up_dst_underflow = 1'b0;
 
   //internal signals
 
   wire          up_ddr_calib_done_s;
-  wire  [ 1:0]  up_wr_fsm_status_s;
-  wire  [ 1:0]  up_rd_fsm_status_s;
-  wire  [31:0]  up_sample_count_msb_s;
-  wire  [31:0]  up_sample_count_lsb_s;
+  wire  [ 4:0]  up_wr_fsm_status_s;
+  wire  [ 3:0]  up_rd_fsm_status_s;
   wire          src_sw_resetn_s;
   wire          dst_sw_resetn_s;
   wire  [33:0]  src_transfer_length_s;
+  wire          up_src_overflow_set_s;
+  wire          up_dst_underflow_set_s;
 
   // write interface
   always @(posedge up_clk) begin
@@ -124,7 +129,9 @@ module data_offload_regmap #(
       up_bypass <= 'd0;
       up_sync <= 'd0;
       up_sync_config <= 'd0;
-      up_transfer_length <= 34'h0;
+      up_transfer_length <= {MEM_SIZE_LOG2{1'b1}};
+      up_src_overflow <= 1'b0;
+      up_dst_underflow <= 1'b0;
     end else begin
       up_wack <= up_wreq;
       /* Scratch Register */
@@ -133,7 +140,18 @@ module data_offload_regmap #(
       end
       /* Transfer Length Register */
       if ((up_wreq == 1'b1) && (up_waddr[11:0] == 14'h07)) begin
-        up_transfer_length <= {up_wdata[27:0], 6'b0};
+        up_transfer_length <= {up_wdata[MEM_SIZE_LOG2-7:0], {6{1'b1}}};
+      end
+      /* Memory interface status register */
+      if ((up_wreq == 1'b1) && (up_waddr[11:0] == 14'h20) && up_wdata[4]) begin
+        up_src_overflow <= 1'b0;
+      end else if (up_src_overflow_set_s) begin
+        up_src_overflow <= 1'b1;
+      end
+      if ((up_wreq == 1'b1) && (up_waddr[11:0] == 14'h20) && up_wdata[5]) begin
+        up_dst_underflow <= 1'b0;
+      end else if (up_dst_underflow_set_s) begin
+        up_dst_underflow <= 1'b1;
       end
       /* Reset Offload Register */
       if ((up_wreq == 1'b1) && (up_waddr[11:0] == 14'h21)) begin
@@ -142,7 +160,7 @@ module data_offload_regmap #(
       /* Control Register */
       if ((up_wreq == 1'b1) && (up_waddr[11:0] == 14'h22)) begin
         up_oneshot <= up_wdata[1];
-        up_bypass <= up_wdata[0];
+        up_bypass <= up_wdata[0] & HAS_BYPASS;
       end
       /* SYNC Offload Register - self cleared, one pulse signal */
       if ((up_wreq == 1'b1) && (up_waddr[11:0] == 14'h40)) begin
@@ -183,27 +201,25 @@ module data_offload_regmap #(
 
         /* Configuration Register */
         14'h004:  up_rdata <= {
-                          30'b0,
+                          18'b0,
+           /*  12-7  */   MEM_SIZE_LOG2[5:0],
+                          5'b0,
+           /*   2   */    HAS_BYPASS[0],
            /*   1   */    TX_OR_RXN_PATH[0],
            /*   0   */    MEM_TYPE[0]
         };
-        /* Configuration Storage Unit Size LSB Register */
-        14'h005:  up_rdata <= MEM_SIZE[31:0];
-
-        /* Configuration Storage Unit Size MSB Register */
-        14'h006:  up_rdata <= {
-                          30'b0,
-           /* 00-01 */    MEM_SIZE[33:32]
-        };
 
         /* Configuration data transfer length */
-        14'h007:  up_rdata <= {4'b0, up_transfer_length[33:6]};
+        14'h007:  up_rdata <= up_transfer_length[MEM_SIZE_LOG2-1:6];
 
         /* 0x08-0x1f reserved for future use */
 
         /* Memory Physical Interface Status */
         14'h020:  up_rdata <= {
                           31'b0,
+                          up_dst_underflow,
+                          up_src_overflow,
+                          3'b0,
            /*   0   */    up_ddr_calib_done_s
         };
         /* Reset Offload Register */
@@ -233,17 +249,11 @@ module data_offload_regmap #(
 
         /* FMS Debug Register */
         14'h080:  up_rdata <= {
-                          24'b0,
-           /* 07-06 */    2'b0,
-           /* 05-04 */    up_rd_fsm_status_s,
-           /* 03-02 */    2'b0,
-           /* 01-00 */    up_wr_fsm_status_s
+                          20'b0,
+           /* 11-08 */    up_rd_fsm_status_s,
+                          3'b0,
+           /* 04-00 */    up_wr_fsm_status_s
         };
-        /* Sample Count LSB Register */
-        14'h081:  up_rdata <= up_sample_count_lsb_s;
-
-        /* Sample Count MSB Register */
-        14'h082:  up_rdata <= up_sample_count_msb_s;
 
         default: up_rdata <= 32'h00000000;
       endcase
@@ -253,7 +263,7 @@ module data_offload_regmap #(
   // Clock Domain Crossing Logic for reset, control and status signals
 
   sync_data #(
-    .NUM_OF_BITS (2),
+    .NUM_OF_BITS (4),
     .ASYNC_CLK (1))
   i_dst_fsm_status (
     .in_clk (dst_clk),
@@ -263,25 +273,13 @@ module data_offload_regmap #(
   );
 
   sync_data #(
-    .NUM_OF_BITS (2),
+    .NUM_OF_BITS (5),
     .ASYNC_CLK (1))
   i_src_fsm_status (
     .in_clk (src_clk),
     .in_data (src_fsm_status),
     .out_clk (up_clk),
     .out_data (up_wr_fsm_status_s)
-  );
-
-  sync_data #(
-    .NUM_OF_BITS (64),
-    .ASYNC_CLK (1))
-  i_xfer_status (
-    .in_clk (src_clk),
-    .in_data ({sample_count_msb,
-               sample_count_lsb}),
-    .out_clk (up_clk),
-    .out_data ({up_sample_count_msb_s,
-                up_sample_count_lsb_s})
   );
 
   generate
@@ -357,22 +355,55 @@ module data_offload_regmap #(
   );
 
   sync_data #(
-    .NUM_OF_BITS (34),
+    .NUM_OF_BITS (MEM_SIZE_LOG2),
     .ASYNC_CLK (1))
   i_sync_src_transfer_length (
     .in_clk (up_clk),
     .in_data (up_transfer_length),
     .out_clk (src_clk),
-    .out_data (src_transfer_length_s)
+    .out_data (src_transfer_length)
+  );
+  sync_data #(
+    .NUM_OF_BITS (MEM_SIZE_LOG2),
+    .ASYNC_CLK (1))
+  i_sync_dst_transfer_length (
+    .in_clk (up_clk),
+    .in_data (up_transfer_length),
+    .out_clk (dst_clk),
+    .out_data (dst_transfer_length)
   );
 
   always @(posedge src_clk) begin
     src_sw_resetn <= src_sw_resetn_s;
-    src_transfer_length <= src_transfer_length_s;
   end
 
   always @(posedge dst_clk) begin
     dst_sw_resetn <= dst_sw_resetn_s;
   end
+
+  generate if (TX_OR_RXN_PATH == 0) begin
+    sync_event #(
+      .NUM_OF_EVENTS (1),
+      .ASYNC_CLK (1))
+    i_wr_overflow_sync (
+      .in_clk (src_clk),
+      .in_event (src_overflow),
+      .out_clk (up_clk),
+      .out_event (up_src_overflow_set_s)
+    );
+    assign up_dst_underflow_set_s = 1'b0;
+  end else begin
+    sync_event #(
+      .NUM_OF_EVENTS (1),
+      .ASYNC_CLK (1))
+    i_rd_underflow_sync (
+      .in_clk (dst_clk),
+      .in_event (dst_underflow),
+      .out_clk (up_clk),
+      .out_event (up_dst_underflow_set_s)
+    );
+    assign up_src_overflow_set_s = 1'b0;
+  end
+  endgenerate
 
 endmodule
