@@ -46,8 +46,8 @@ module axi_adrv9001_if #(
   parameter DISABLE_TX2_SSI = 0,
   parameter IODELAY_CTRL = 1,
   parameter IO_DELAY_GROUP = "dev_if_delay_group",
-  parameter USE_RX_CLK_FOR_TX = 0
-) (
+  parameter USE_RX_CLK_FOR_TX = 0) (
+
   input             ref_clk,
   input             tx_output_enable,
 
@@ -212,7 +212,7 @@ module axi_adrv9001_if #(
       .IODELAY_CTRL (IODELAY_CTRL),
       .USE_BUFG (RX_USE_BUFG),
       .IO_DELAY_GROUP ({IO_DELAY_GROUP,"_rx"})
-    ) i_rx_1_phy (
+  ) i_rx_1_phy (
     .rx_dclk_in_n_NC (rx1_dclk_in_n_NC),
     .rx_dclk_in_p_dclk_in (rx1_dclk_in_p_dclk_in),
     .rx_idata_in_n_idata0 (rx1_idata_in_n_idata0),
@@ -221,7 +221,6 @@ module axi_adrv9001_if #(
     .rx_qdata_in_p_qdata3 (rx1_qdata_in_p_qdata3),
     .rx_strobe_in_n_NC (rx1_strobe_in_n_NC),
     .rx_strobe_in_p_strobe_in (rx1_strobe_in_p_strobe_in),
-
     .adc_rst (rx1_rst),
     .adc_clk (adc_1_clk),
     .adc_clk_div (adc_1_clk_div),
@@ -231,9 +230,7 @@ module axi_adrv9001_if #(
     .adc_data_3 (adc_1_data_3),
     .adc_data_strobe (adc_1_data_strobe),
     .adc_valid (adc_1_valid),
-
     .adc_clk_ratio (adc_clk_ratio),
-
     .up_clk (up_clk),
     .up_adc_dld (up_rx1_dld),
     .up_adc_dwdata (up_rx1_dwdata),
@@ -241,7 +238,6 @@ module axi_adrv9001_if #(
     .delay_clk (delay_clk),
     .delay_rst (delay_rx1_rst),
     .delay_locked (delay_rx1_locked),
-
     .mssi_sync (mssi_sync),
     .ssi_sync_out (rx_ssi_sync_out),
     .ssi_sync_in (rx_ssi_sync_out),
@@ -259,7 +255,6 @@ module axi_adrv9001_if #(
     .adc_data_3 (adc_1_data_3),
     .adc_data_strobe (adc_1_data_strobe),
     .adc_valid (adc_1_valid),
-    // ADC interface
     .rx_clk (rx1_clk),
     .rx_data_valid (rx1_data_valid),
     .rx_data_i (rx1_data_i),
@@ -271,15 +266,15 @@ module axi_adrv9001_if #(
   );
 
   generate if (DISABLE_RX2_SSI == 0) begin
-    adrv9001_rx
-      #(.CMOS_LVDS_N (CMOS_LVDS_N),
-        .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
-        .NUM_LANES (NUM_LANES),
-        .DRP_WIDTH (DRP_WIDTH),
-        .IODELAY_CTRL (0),
-        .USE_BUFG (RX_USE_BUFG),
-        .IO_DELAY_GROUP ({IO_DELAY_GROUP,"_rx"})
-      ) i_rx_2_phy (
+    adrv9001_rx #(
+      .CMOS_LVDS_N (CMOS_LVDS_N),
+      .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
+      .NUM_LANES (NUM_LANES),
+      .DRP_WIDTH (DRP_WIDTH),
+      .IODELAY_CTRL (0),
+      .USE_BUFG (RX_USE_BUFG),
+      .IO_DELAY_GROUP ({IO_DELAY_GROUP,"_rx"})
+    ) i_rx_2_phy (
       .rx_dclk_in_n_NC (rx2_dclk_in_n_NC),
       .rx_dclk_in_p_dclk_in (rx2_dclk_in_p_dclk_in),
       .rx_idata_in_n_idata0 (rx2_idata_in_n_idata0),
@@ -288,7 +283,6 @@ module axi_adrv9001_if #(
       .rx_qdata_in_p_qdata3 (rx2_qdata_in_p_qdata3),
       .rx_strobe_in_n_NC (rx2_strobe_in_n_NC),
       .rx_strobe_in_p_strobe_in (rx2_strobe_in_p_strobe_in),
-
       .adc_rst (rx2_rst),
       .adc_clk (adc_2_clk),
       .adc_clk_div (adc_2_clk_div),
@@ -298,7 +292,6 @@ module axi_adrv9001_if #(
       .adc_data_3 (adc_2_data_3),
       .adc_data_strobe (adc_2_data_strobe),
       .adc_valid (adc_2_valid),
-
       .up_clk (up_clk),
       .up_adc_dld (up_rx2_dld),
       .up_adc_dwdata (up_rx2_dwdata),
@@ -306,7 +299,6 @@ module axi_adrv9001_if #(
       .delay_clk (delay_clk),
       .delay_rst (delay_rx2_rst),
       .delay_locked (delay_rx2_locked),
-
       .mssi_sync (1'b0),
       .ssi_sync_out (),
       .ssi_sync_in (rx_ssi_sync_out),
@@ -324,7 +316,6 @@ module axi_adrv9001_if #(
       .adc_data_3 (adc_2_data_3),
       .adc_data_strobe (adc_2_data_strobe),
       .adc_valid (adc_2_valid),
-      // ADC interface
       .rx_clk (rx2_clk),
       .rx_data_valid (rx2_data_valid),
       .rx_data_i (rx2_data_i),
@@ -351,12 +342,9 @@ module axi_adrv9001_if #(
    .USE_BUFG (TX_USE_BUFG),
    .USE_RX_CLK_FOR_TX (USE_RX_CLK_FOR_TX)
   ) i_tx_1_phy (
-
    .ref_clk (ref_clk),
    .up_clk (up_clk),
-
    .tx_output_enable(tx_output_enable),
-
    .tx_dclk_out_n_NC (tx1_dclk_out_n_NC),
    .tx_dclk_out_p_dclk_out (tx1_dclk_out_p_dclk_out),
    .tx_dclk_in_n_NC (tx1_dclk_in_n_NC),
@@ -367,14 +355,11 @@ module axi_adrv9001_if #(
    .tx_qdata_out_p_qdata3 (tx1_qdata_out_p_qdata3),
    .tx_strobe_out_n_NC (tx1_strobe_out_n_NC),
    .tx_strobe_out_p_strobe_out (tx1_strobe_out_p_strobe_out),
-
    .rx_clk_div (adc_1_clk_div),
    .rx_clk (adc_1_clk),
    .rx_ssi_rst (adc_1_ssi_rst),
-
    .dac_rst (tx1_rst),
    .dac_clk_div (dac_1_clk_div),
-
    .dac_data_0 (dac_1_data_0),
    .dac_data_1 (dac_1_data_1),
    .dac_data_2 (dac_1_data_2),
@@ -382,9 +367,7 @@ module axi_adrv9001_if #(
    .dac_data_strb (dac_1_data_strobe),
    .dac_data_clk (dac_1_data_clk),
    .dac_data_valid (dac_1_data_valid),
-
    .dac_clk_ratio (dac_clk_ratio),
-
    .mssi_sync (mssi_sync)
   );
 
@@ -400,7 +383,6 @@ module axi_adrv9001_if #(
     .dac_data_strobe (dac_1_data_strobe),
     .dac_data_clk (dac_1_data_clk),
     .dac_data_valid (dac_1_data_valid),
-    // DAC interface
     .tx_clk (tx1_clk),
     .tx_rst (tx1_rst),
     .tx_data_valid (tx1_data_valid),
@@ -414,45 +396,37 @@ module axi_adrv9001_if #(
 
   generate if (DISABLE_TX2_SSI == 0) begin
     adrv9001_tx #(
-     .CMOS_LVDS_N (CMOS_LVDS_N),
-     .NUM_LANES (TX_NUM_LANES),
-     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
-     .USE_BUFG (TX_USE_BUFG),
-     .USE_RX_CLK_FOR_TX (USE_RX_CLK_FOR_TX)
+      .CMOS_LVDS_N (CMOS_LVDS_N),
+      .NUM_LANES (TX_NUM_LANES),
+      .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
+      .USE_BUFG (TX_USE_BUFG),
+      .USE_RX_CLK_FOR_TX (USE_RX_CLK_FOR_TX)
     ) i_tx_2_phy (
-
-     .ref_clk (ref_clk),
-     .up_clk (up_clk),
-
-     .tx_output_enable(tx_output_enable),
-
-     .tx_dclk_out_n_NC (tx2_dclk_out_n_NC),
-     .tx_dclk_out_p_dclk_out (tx2_dclk_out_p_dclk_out),
-     .tx_dclk_in_n_NC (tx2_dclk_in_n_NC),
-     .tx_dclk_in_p_dclk_in (tx2_dclk_in_p_dclk_in),
-     .tx_idata_out_n_idata0 (tx2_idata_out_n_idata0),
-     .tx_idata_out_p_idata1 (tx2_idata_out_p_idata1),
-     .tx_qdata_out_n_qdata2 (tx2_qdata_out_n_qdata2),
-     .tx_qdata_out_p_qdata3 (tx2_qdata_out_p_qdata3),
-     .tx_strobe_out_n_NC (tx2_strobe_out_n_NC),
-     .tx_strobe_out_p_strobe_out (tx2_strobe_out_p_strobe_out),
-
-     .rx_clk_div (adc_2_clk_div),
-     .rx_clk (adc_2_clk),
-     .rx_ssi_rst (adc_2_ssi_rst),
-
-     .dac_rst (tx2_rst),
-     .dac_clk_div (dac_2_clk_div),
-
-     .dac_data_0 (dac_2_data_0),
-     .dac_data_1 (dac_2_data_1),
-     .dac_data_2 (dac_2_data_2),
-     .dac_data_3 (dac_2_data_3),
-     .dac_data_strb (dac_2_data_strobe),
-     .dac_data_clk (dac_2_data_clk),
-     .dac_data_valid (dac_2_data_valid),
-
-     .mssi_sync (mssi_sync)
+      .ref_clk (ref_clk),
+      .up_clk (up_clk),
+      .tx_output_enable(tx_output_enable),
+      .tx_dclk_out_n_NC (tx2_dclk_out_n_NC),
+      .tx_dclk_out_p_dclk_out (tx2_dclk_out_p_dclk_out),
+      .tx_dclk_in_n_NC (tx2_dclk_in_n_NC),
+      .tx_dclk_in_p_dclk_in (tx2_dclk_in_p_dclk_in),
+      .tx_idata_out_n_idata0 (tx2_idata_out_n_idata0),
+      .tx_idata_out_p_idata1 (tx2_idata_out_p_idata1),
+      .tx_qdata_out_n_qdata2 (tx2_qdata_out_n_qdata2),
+      .tx_qdata_out_p_qdata3 (tx2_qdata_out_p_qdata3),
+      .tx_strobe_out_n_NC (tx2_strobe_out_n_NC),
+      .tx_strobe_out_p_strobe_out (tx2_strobe_out_p_strobe_out),
+      .rx_clk_div (adc_2_clk_div),
+      .rx_clk (adc_2_clk),
+      .rx_ssi_rst (adc_2_ssi_rst),
+      .dac_rst (tx2_rst),
+      .dac_clk_div (dac_2_clk_div),
+      .dac_data_0 (dac_2_data_0),
+      .dac_data_1 (dac_2_data_1),
+      .dac_data_2 (dac_2_data_2),
+      .dac_data_3 (dac_2_data_3),
+      .dac_data_strb (dac_2_data_strobe),
+      .dac_data_clk (dac_2_data_clk),
+      .dac_data_valid (dac_2_data_valid),
     );
 
     adrv9001_tx_link #(
@@ -467,7 +441,6 @@ module axi_adrv9001_if #(
       .dac_data_strobe (dac_2_data_strobe),
       .dac_data_clk (dac_2_data_clk),
       .dac_data_valid (dac_2_data_valid),
-      // DAC interface
       .tx_clk (tx2_clk),
       .tx_rst (tx2_rst),
       .tx_data_valid (tx2_data_valid),
@@ -492,4 +465,5 @@ module axi_adrv9001_if #(
   endgenerate
 
 endmodule
-
+// ***************************************************************************
+// ***************************************************************************

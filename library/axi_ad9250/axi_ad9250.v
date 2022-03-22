@@ -37,11 +37,10 @@
 
 module axi_ad9250 #(
   parameter ID = 0,
-  parameter   FPGA_TECHNOLOGY = 0,
-  parameter   FPGA_FAMILY = 0,
-  parameter   SPEED_GRADE = 0,
-  parameter   DEV_PACKAGE = 0
-) (
+  parameter FPGA_TECHNOLOGY = 0,
+  parameter FPGA_FAMILY = 0,
+  parameter SPEED_GRADE = 0,
+  parameter DEV_PACKAGE = 0) (
 
   // jesd interface
   // rx_clk is (line-rate/40)
@@ -104,17 +103,14 @@ module axi_ad9250 #(
     .TWOS_COMPLEMENT (1)
   ) i_adc_jesd204 (
     .link_clk (rx_clk),
-
     .link_sof (rx_sof),
     .link_valid (rx_valid),
     .link_data (rx_data),
     .link_ready (rx_ready),
-
     .enable ({adc_enable_b,adc_enable_a}),
     .adc_valid ({adc_valid_b,adc_valid_a}),
     .adc_data ({adc_data_b,adc_data_a}),
     .adc_dovf (adc_dovf),
-
     .s_axi_aclk (s_axi_aclk),
     .s_axi_aresetn (s_axi_aresetn),
     .s_axi_awvalid (s_axi_awvalid),
@@ -139,3 +135,5 @@ module axi_ad9250 #(
   );
 
 endmodule
+// ***************************************************************************
+// ***************************************************************************
