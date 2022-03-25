@@ -86,7 +86,7 @@ module jesd204_rx_lane #(
   output [DATA_PATH_WIDTH*8-1:0] ilas_config_data,
 
   input err_statistics_reset,
-  input [2:0]ctrl_err_statistics_mask,
+  input [2:0] ctrl_err_statistics_mask,
   output reg [31:0] status_err_statistics_cnt,
 
   output [1:0] status_cgs_state,
