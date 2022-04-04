@@ -45,14 +45,12 @@ module ad_mux #(
   parameter CH_CNT = 64,  // Number of input channels
   parameter REQ_MUX_SZ = 8,  // Size of mux which acts as a building block
   parameter EN_REG = 1,  // Enable register at output of each mux
-  parameter DW = CH_W*CH_CNT
+  parameter DW = CH_W*CH_CNT) (
 
-) (
   input clk,
   input [DW-1:0] data_in,
   input [$clog2(CH_CNT)-1:0] ch_sel,
-  output [CH_W-1:0] data_out
-);
+  output [CH_W-1:0] data_out);
 
 `define MIN(A,B) (A<B?A:B)
 

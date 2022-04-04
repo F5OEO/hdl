@@ -184,8 +184,7 @@ module util_adxcvr_xch #(
   input           up_tx_wr,
   input   [15:0]  up_tx_wdata,
   output  [15:0]  up_tx_rdata,
-  output          up_tx_ready
-);
+  output          up_tx_ready);
 
   localparam GTXE2_TRANSCEIVERS = 2;
   localparam GTHE3_TRANSCEIVERS = 5;
@@ -393,17 +392,17 @@ module util_adxcvr_xch #(
     .out_bits ({tx_prbssel,
                 tx_prbsforceerr})
   );
-  
-  // Bufstatus 
+
+  // Bufstatus
   reg         rx_bufstatus_sticky_0 = 1'b0;
   reg         rx_bufstatus_sticky_1 = 1'b0;
-  
+
   wire        rx_bufstatus_rst;
   wire [ 1:0] rx_bufstatus;
   wire [ 1:0] rx_bufstatus_s;
   wire [ 1:0] tx_bufstatus;
   wire [ 1:0] tx_bufstatus_s;
-  
+
   sync_bits #(.NUM_OF_BITS(1)) i_sync_bits_rx_bufstatus_in (
     .in_bits (up_rx_bufstatus_rst),
     .out_resetn (1'b1),
@@ -418,7 +417,7 @@ module util_adxcvr_xch #(
       rx_bufstatus_sticky_0 <= 1'b1;
     end
   end
-  
+
   always @(posedge rx_clk) begin
     if (rx_bufstatus_rst) begin
       rx_bufstatus_sticky_1 <= 1'b0;
@@ -426,7 +425,7 @@ module util_adxcvr_xch #(
       rx_bufstatus_sticky_1 <= 1'b1;
     end
   end
-  
+
   sync_bits #(.NUM_OF_BITS(4)) i_sync_bits_bufstatus_out (
       .in_bits ({rx_bufstatus,
                  tx_bufstatus}),
@@ -435,7 +434,7 @@ module util_adxcvr_xch #(
       .out_bits ({up_rx_bufstatus,
                   up_tx_bufstatus})
     );
-  
+
   // 204C specific logic
   localparam ALIGN_COMMA_ENABLE  = LINK_MODE[1] ? 10'b0000000000 : 10'b1111111111;
   localparam ALIGN_MCOMMA_DET = LINK_MODE[1] ? "FALSE" : "TRUE";
@@ -493,12 +492,12 @@ module util_adxcvr_xch #(
                          (XCVR_TYPE==GTHE4_TRANSCEIVERS) ? rx_clk_2x : rx_clk;
       assign tx_usrclk = (XCVR_TYPE==GTHE3_TRANSCEIVERS) ||
                          (XCVR_TYPE==GTHE4_TRANSCEIVERS) ? tx_clk_2x : tx_clk;
-						 
+
       assign rx_bufstatus[0] = rx_bufstatus_sticky_0;
       assign rx_bufstatus[1] = rx_bufstatus_sticky_1;
-	  
+
       assign tx_bufstatus = tx_bufstatus_s;
-	  
+
     end else begin
 
       assign {rx_data_open_s, rx_data} = rx_data_s;
@@ -507,10 +506,10 @@ module util_adxcvr_xch #(
 
       assign rx_usrclk = rx_clk;
       assign tx_usrclk = tx_clk;
-	  
+
       assign rx_bufstatus[0] = rx_bufstatus_sticky_1;
       assign rx_bufstatus[1] = rx_bufstatus_sticky_1;
-	  
+
       assign tx_bufstatus[0] = tx_bufstatus_s[1];
       assign tx_bufstatus[1] = tx_bufstatus_s[1];
     end

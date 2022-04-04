@@ -106,8 +106,8 @@ module axi_adrv9001_tx #(
   input                   up_rreq,
   input       [ 13:0]     up_raddr,
   output  reg [ 31:0]     up_rdata,
-  output  reg             up_rack
-);
+  output  reg             up_rack);
+
 generate
 if (ENABLED == 0) begin : core_disabled
 
@@ -227,8 +227,8 @@ end else begin : core_enabled
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
-    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW))
-  i_tx_channel_0 (
+    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW)
+  ) i_tx_channel_0 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_data_in_req (dac_valid),
@@ -262,8 +262,8 @@ end else begin : core_enabled
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
-    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW))
-  i_tx_channel_1 (
+    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW)
+  ) i_tx_channel_1 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_data_in_req (),
@@ -297,8 +297,8 @@ end else begin : core_enabled
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
-    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW))
-  i_tx_channel_2 (
+    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW)
+  ) i_tx_channel_2 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_data_in_req (),
@@ -332,8 +332,8 @@ end else begin : core_enabled
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
-    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW))
-  i_tx_channel_3 (
+    .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW)
+  ) i_tx_channel_3 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_data_in_req (),
@@ -369,8 +369,8 @@ end else begin : core_enabled
     .COMMON_ID(COMMON_BASE_ADDR),
     .DRP_DISABLE(1),
     .USERPORTS_DISABLE(1),
-    .GPIO_DISABLE(1))
-  i_up_dac_common (
+    .GPIO_DISABLE(1)
+  ) i_up_dac_common (
     .mmcm_rst (),
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),

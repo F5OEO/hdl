@@ -37,7 +37,7 @@
 
 module response_generator #(
 
-  parameter ID_WIDTH = 3)(
+  parameter ID_WIDTH = 3) (
 
   input clk,
   input resetn,
@@ -53,8 +53,7 @@ module response_generator #(
   output resp_valid,
   input resp_ready,
   output resp_eot,
-  output [1:0] resp_resp
-);
+  output [1:0] resp_resp);
 
 `include "inc_id.vh"
 `include "resp.vh"

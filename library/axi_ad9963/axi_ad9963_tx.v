@@ -131,8 +131,8 @@ module axi_ad9963_tx #(
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
     .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
-    .DATAPATH_DISABLE (DATAPATH_DISABLE))
-  i_tx_channel_0 (
+    .DATAPATH_DISABLE (DATAPATH_DISABLE)
+  ) i_tx_channel_0 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_valid (dac_valid_i),
@@ -165,8 +165,8 @@ module axi_ad9963_tx #(
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
     .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
-    .DATAPATH_DISABLE (DATAPATH_DISABLE))
-  i_tx_channel_1 (
+    .DATAPATH_DISABLE (DATAPATH_DISABLE)
+  ) i_tx_channel_1 (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
     .dac_valid (dac_valid_q),

@@ -199,8 +199,8 @@ module axi_clkgen #(
     .MMCM_CLK0_DIV (CLK0_DIV),
     .MMCM_CLK0_PHASE (CLK0_PHASE),
     .MMCM_CLK1_DIV (CLK1_DIV),
-    .MMCM_CLK1_PHASE (CLK1_PHASE))
-  i_mmcm_drp (
+    .MMCM_CLK1_PHASE (CLK1_PHASE)
+  ) i_mmcm_drp (
     .clk (clk),
     .clk2 (clk2),
     .clk_sel(clk_sel_s),
@@ -220,5 +220,3 @@ module axi_clkgen #(
 
 endmodule
 
-// ***************************************************************************
-// ***************************************************************************

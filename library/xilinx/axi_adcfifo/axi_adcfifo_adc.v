@@ -111,7 +111,9 @@ module axi_adcfifo_adc #(
 
   // instantiations
 
-  up_xfer_status #(.DATA_WIDTH(4)) i_xfer_status (
+  up_xfer_status #(
+    .DATA_WIDTH(4)
+  ) i_xfer_status (
     .up_rstn (~adc_rst),
     .up_clk (adc_clk),
     .up_data_status (adc_xfer_status_s),

@@ -37,8 +37,8 @@
 
 module axi_write_slave #(
   parameter DATA_WIDTH = 32,
-  parameter WRITE_ACCEPTANCE = 3
-) (
+  parameter WRITE_ACCEPTANCE = 3) (
+
   input clk,
   input reset,
 
@@ -59,8 +59,7 @@ module axi_write_slave #(
 
   output reg bvalid,
   input bready,
-  output [1:0] bresp
-);
+  output [1:0] bresp);
 
 wire beat_last;
 
@@ -81,8 +80,7 @@ axi_slave #(
 
   .beat_stb(wready),
   .beat_ack(wvalid & wready),
-  .beat_last(beat_last)
-);
+  .beat_last(beat_last));
 
 reg [4:0] resp_count = 'h00;
 wire [4:0] resp_count_next;

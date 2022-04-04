@@ -50,8 +50,8 @@ module axi_dmac_regmap #(
   parameter HAS_DEST_ADDR = 1,
   parameter HAS_SRC_ADDR = 1,
   parameter DMA_2D_TRANSFER = 0,
-  parameter SYNC_TRANSFER_START = 0
-) (
+  parameter SYNC_TRANSFER_START = 0) (
+
   // Slave AXI interface
   input s_axi_aclk,
   input s_axi_aresetn,
@@ -111,8 +111,7 @@ module axi_dmac_regmap #(
   input [DMA_AXI_ADDR_WIDTH-1:0] dbg_dest_addr,
   input [11:0] dbg_status,
   input [31:0] dbg_ids0,
-  input [31:0] dbg_ids1
-);
+  input [31:0] dbg_ids1);
 
 localparam PCORE_VERSION = 'h00040361;
 
@@ -262,8 +261,7 @@ axi_dmac_regmap_request #(
   .response_measured_burst_length(response_measured_burst_length),
   .response_partial(response_partial),
   .response_valid(response_valid),
-  .response_ready(response_ready)
-);
+  .response_ready(response_ready));
 
 up_axi #(
   .AXI_ADDRESS_WIDTH (11)
@@ -294,7 +292,7 @@ up_axi #(
   .up_rreq(up_rreq),
   .up_raddr(up_raddr),
   .up_rdata(up_rdata),
-  .up_rack(up_rack)
-);
+  .up_rack(up_rack));
 
 endmodule
+

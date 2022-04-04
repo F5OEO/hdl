@@ -40,8 +40,8 @@ module adrv9001_tx #(
   parameter NUM_LANES = 4,
   parameter FPGA_TECHNOLOGY = 0,
   parameter USE_BUFG = 0,
-  parameter USE_RX_CLK_FOR_TX = 0
-) (
+  parameter USE_RX_CLK_FOR_TX = 0) (
+
   input                   ref_clk,
   input                   up_clk,
 
@@ -77,8 +77,7 @@ module adrv9001_tx #(
   input       [7:0]       dac_data_3,
   input       [7:0]       dac_data_strb,
   input       [7:0]       dac_data_clk,
-  input                   dac_data_valid
-);
+  input                   dac_data_valid);
 
   wire [6*8-1:0] serdes_in;
   wire [5:0] gpio_out;

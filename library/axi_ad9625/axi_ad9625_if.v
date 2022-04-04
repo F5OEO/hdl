@@ -207,7 +207,10 @@ module axi_ad9625_if #(
 
   // alignment fifo
 
-  ad_mem #(.ADDRESS_WIDTH(4), .DATA_WIDTH(192)) i_mem (
+  ad_mem #(
+    .ADDRESS_WIDTH(4),
+    .DATA_WIDTH(192)
+  ) i_mem (
     .clka (rx_clk),
     .wea (1'b1),
     .addra (adc_waddr),

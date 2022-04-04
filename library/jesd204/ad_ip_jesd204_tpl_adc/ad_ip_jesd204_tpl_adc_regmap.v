@@ -32,8 +32,8 @@ module ad_ip_jesd204_tpl_adc_regmap #(
   parameter NUM_CHANNELS = 1,
   parameter DATA_PATH_WIDTH = 1,
   parameter NUM_PROFILES = 1,    // Number of supported JESD profiles
-  parameter EXT_SYNC = 0
-) (
+  parameter EXT_SYNC = 0) (
+
   // axi interface
   input s_axi_aclk,
   input s_axi_aresetn,
@@ -90,8 +90,7 @@ module ad_ip_jesd204_tpl_adc_regmap #(
   input [NUM_PROFILES*8-1: 0] jesd_n,
   input [NUM_PROFILES*8-1: 0] jesd_np,
 
-  output [$clog2(NUM_PROFILES):0] up_profile_sel
-);
+  output [$clog2(NUM_PROFILES):0] up_profile_sel);
 
   localparam [31:0] CLK_RATIO = DATA_PATH_WIDTH;
 

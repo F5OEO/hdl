@@ -518,8 +518,7 @@ module axi_spi_engine #(
       .m_axis_valid(sync_fifo_valid),
       .m_axis_data(sync_fifo_data),
       .m_axis_level(),
-      .m_axis_empty()
-    );
+      .m_axis_empty());
 
     // synchronization FIFO for the offload command interface
     wire up_offload0_cmd_wr_en_s;
@@ -544,8 +543,7 @@ module axi_spi_engine #(
       .m_axis_valid(offload0_cmd_wr_en),
       .m_axis_data(offload0_cmd_wr_data),
       .m_axis_level(),
-      .m_axis_empty()
-    );
+      .m_axis_empty());
 
     assign up_offload0_cmd_wr_en_s = up_wreq_s == 1'b1 && up_waddr_s == 8'h44;
     assign up_offload0_cmd_wr_data_s = up_wdata_s[15:0];
@@ -573,8 +571,7 @@ module axi_spi_engine #(
       .m_axis_valid(offload0_sdo_wr_en),
       .m_axis_data(offload0_sdo_wr_data),
       .m_axis_level(),
-      .m_axis_empty()
-    );
+      .m_axis_empty());
 
     assign up_offload0_sdo_wr_en_s = up_wreq_s == 1'b1 && up_waddr_s == 8'h45;
     assign up_offload0_sdo_wr_data_s = up_wdata_s[DATA_WIDTH-1:0];
@@ -599,8 +596,7 @@ module axi_spi_engine #(
       .m_axis_valid(offload_sync_fifo_valid),
       .m_axis_data(offload_sync_fifo_data),
       .m_axis_level(),
-      .m_axis_empty()
-    );
+      .m_axis_empty());
 
   end else begin /* ASYNC_SPI_CLK == 0 */
 

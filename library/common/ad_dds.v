@@ -151,8 +151,8 @@ module ad_dds #(
            .PHASE_DW (PHASE_DW),
            .DDS_TYPE (DDS_TYPE),
            .CORDIC_DW (CORDIC_DW),
-           .CORDIC_PHASE_DW (CORDIC_PHASE_DW))
-         i_dds_2 (
+           .CORDIC_PHASE_DW (CORDIC_PHASE_DW)
+         ) i_dds_2 (
           .clk (clk),
           .dds_format (dac_dds_format),
           .dds_phase_0 (dac_dds_phase_0_m[i]),

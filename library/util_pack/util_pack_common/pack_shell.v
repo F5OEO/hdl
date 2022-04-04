@@ -55,8 +55,8 @@ module pack_shell #(
 
   output [NUM_OF_CHANNELS*SAMPLE_DATA_WIDTH*SAMPLES_PER_CHANNEL-1:0] out_data,
   output out_sync,
-  output [NUM_OF_CHANNELS*SAMPLES_PER_CHANNEL-1:0] out_valid
-);
+  output [NUM_OF_CHANNELS*SAMPLES_PER_CHANNEL-1:0] out_valid);
+
   /* If the number of active channels can be a non-power of two */
   localparam NON_POWER_OF_TWO = NUM_OF_CHANNELS > 2;
 

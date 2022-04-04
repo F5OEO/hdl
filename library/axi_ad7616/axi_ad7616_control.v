@@ -65,8 +65,7 @@ module axi_ad7616_control #(
   input                   up_rreq,
   input       [13:0]      up_raddr,
   output  reg [31:0]      up_rdata,
-  output  reg             up_rack
-);
+  output  reg             up_rack);
 
 
   localparam  PCORE_VERSION = 'h00001002;

@@ -37,8 +37,8 @@
 
 module axi_dmac_resize_dest #(
   parameter DATA_WIDTH_DEST = 64,
-  parameter DATA_WIDTH_MEM = 64
-) (
+  parameter DATA_WIDTH_MEM = 64) (
+
   input clk,
   input reset,
 
@@ -52,8 +52,7 @@ module axi_dmac_resize_dest #(
   input dest_data_ready,
   output [DATA_WIDTH_DEST-1:0] dest_data,
   output dest_data_last,
-  output [DATA_WIDTH_DEST/8-1:0] dest_data_strb
-);
+  output [DATA_WIDTH_DEST/8-1:0] dest_data_strb);
 
 /*
  * Resize the data width between the burst memory and the destination interface

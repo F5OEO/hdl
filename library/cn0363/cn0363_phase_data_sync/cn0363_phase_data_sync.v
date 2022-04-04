@@ -58,8 +58,7 @@ module cn0363_phase_data_sync (
   input m_axis_phase_ready,
   output [31:0] m_axis_phase_data,
 
-  output reg overflow
-);
+  output reg overflow);
 
 reg [1:0] data_counter = 'h00;
 

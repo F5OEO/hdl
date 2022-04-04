@@ -110,8 +110,8 @@ module axi_ad9684_if #(
     .IODELAY_CTRL(1),
     .IODELAY_GROUP(IO_DELAY_GROUP),
     .DDR_OR_SDR_N(DDR_OR_SDR_N),
-    .DATA_WIDTH(14))
-  i_adc_data (
+    .DATA_WIDTH(14)
+  ) i_adc_data (
     .rst(adc_rst),
     .clk(adc_clk_in),
     .div_clk(adc_div_clk),
@@ -143,8 +143,8 @@ module axi_ad9684_if #(
       .IODELAY_CTRL(0),
       .IODELAY_GROUP(IO_DELAY_GROUP),
       .DDR_OR_SDR_N(DDR_OR_SDR_N),
-      .DATA_WIDTH(1))
-    i_adc_or (
+      .DATA_WIDTH(1)
+    ) i_adc_or (
       .rst(adc_rst),
       .clk(adc_clk_in),
       .div_clk(adc_div_clk),
@@ -188,8 +188,8 @@ module axi_ad9684_if #(
     .MMCM_VCO_DIV (6),
     .MMCM_VCO_MUL (12),
     .MMCM_CLK0_DIV (2),
-    .MMCM_CLK1_DIV (4))
-  i_serdes_clk (
+    .MMCM_CLK1_DIV (4)
+  ) i_serdes_clk (
     .rst (rst),
     .clk_in_p (adc_clk_in_p),
     .clk_in_n (adc_clk_in_n),
@@ -220,3 +220,4 @@ module axi_ad9684_if #(
   end
 
 endmodule
+

@@ -84,9 +84,7 @@ module data_offload_regmap #(
   input       [ 1:0]      dst_fsm_status,
 
   input       [31:0]      sample_count_msb,
-  input       [31:0]      sample_count_lsb
-
-);
+  input       [31:0]      sample_count_lsb);
 
   // local parameters
 

@@ -44,7 +44,7 @@ module dest_axi_mm #(
   parameter BEATS_PER_BURST_WIDTH = 4,
   parameter MAX_BYTES_PER_BURST = 128,
   parameter BYTES_PER_BURST_WIDTH = $clog2(MAX_BYTES_PER_BURST),
-  parameter AXI_LENGTH_WIDTH = 8)(
+  parameter AXI_LENGTH_WIDTH = 8) (
 
   input                               m_axi_aclk,
   input                               m_axi_aresetn,
@@ -104,8 +104,7 @@ module dest_axi_mm #(
   // Write response
   input                               m_axi_bvalid,
   input  [ 1:0]                       m_axi_bresp,
-  output                              m_axi_bready
-);
+  output                              m_axi_bready);
 
 wire address_enabled;
 
@@ -143,8 +142,7 @@ address_generator #(
   .size(m_axi_awsize),
   .burst(m_axi_awburst),
   .prot(m_axi_awprot),
-  .cache(m_axi_awcache)
-);
+  .cache(m_axi_awcache));
 
 assign m_axi_wvalid = fifo_valid;
 assign fifo_ready = m_axi_wready;
@@ -172,8 +170,7 @@ response_handler #(
   .resp_valid(response_valid),
   .resp_ready(response_ready),
   .resp_resp(response_resp),
-  .resp_eot(response_resp_eot)
-);
+  .resp_eot(response_resp_eot));
 
 reg [BYTES_PER_BURST_WIDTH+1-1:0] bl_mem [0:2**(ID_WIDTH)-1];
 
@@ -186,6 +183,5 @@ always @(posedge m_axi_aclk) begin
                                    dest_burst_info_length};
   end
 end
-
 
 endmodule

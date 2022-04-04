@@ -184,7 +184,10 @@ module axi_ad9671_if #(
     end
   end
 
-  ad_mem #(.ADDRESS_WIDTH(4), .DATA_WIDTH(128)) i_mem (
+  ad_mem #(
+    .ADDRESS_WIDTH(4),
+    .DATA_WIDTH(128)
+  ) i_mem (
     .clka(rx_clk),
     .wea(int_valid),
     .addra(adc_waddr),

@@ -50,8 +50,8 @@
 //   sof   :       1,       0,       0,       0,       1,       0, ...
 
 module adrv9001_pack #(
-  parameter WIDTH = 8
-)(
+  parameter WIDTH = 8) (
+
   input                      clk,    // Input clock
   input                      rst,
   input                      sof,    // Start of frame indicator marking the MS Beat
@@ -59,8 +59,7 @@ module adrv9001_pack #(
   input                      ivalid, // Input data qualifier
   output reg  [WIDTH*2-1:0]  odata,  // Output data beat
   output reg                 ovalid, // Output data qualifier
-  output reg                 osof    // Output Start of frame indicator
-);
+  output reg                 osof);  // Output Start of frame indicator
 
   reg  [WIDTH-1:0] idata_d = {WIDTH{1'b0}};
   always @(posedge clk) begin
@@ -87,3 +86,4 @@ module adrv9001_pack #(
   end
 
 endmodule
+

@@ -130,8 +130,8 @@ module ad_dds_2 #(
      ad_dds_1 #(
        .DDS_TYPE(DDS_TYPE),
        .DDS_D_DW(DDS_D_DW),
-       .DDS_P_DW(DDS_P_DW))
-     i_dds_1_0 (
+       .DDS_P_DW(DDS_P_DW)
+     ) i_dds_1_0 (
        .clk (clk),
        .angle (dds_phase_0_s),
        .scale (dds_scale_0_d),
@@ -142,8 +142,8 @@ module ad_dds_2 #(
      ad_dds_1 #(
        .DDS_TYPE(DDS_TYPE),
        .DDS_D_DW(DDS_D_DW),
-       .DDS_P_DW(DDS_P_DW))
-     i_dds_1_1 (
+       .DDS_P_DW(DDS_P_DW)
+     ) i_dds_1_1 (
        .clk (clk),
        .angle (dds_phase_1_s),
        .scale (dds_scale_1_d),

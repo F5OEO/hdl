@@ -494,7 +494,9 @@ module axi_ad9625_pnmon (
 
   // pn oos & pn error
 
-  ad_pnmon #(.DATA_WIDTH(192)) i_pnmon (
+  ad_pnmon #(
+    .DATA_WIDTH(192)
+  ) i_pnmon (
     .adc_clk (adc_clk),
     .adc_valid_in (1'b1),
     .adc_data_in (adc_pn_data_in),

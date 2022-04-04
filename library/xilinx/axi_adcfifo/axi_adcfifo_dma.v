@@ -191,8 +191,8 @@ module axi_adcfifo_dma #(
     .A_ADDRESS_WIDTH (AXI_ADDRESS_WIDTH),
     .A_DATA_WIDTH (AXI_DATA_WIDTH),
     .B_ADDRESS_WIDTH (DMA_ADDRESS_WIDTH),
-    .B_DATA_WIDTH (DMA_DATA_WIDTH))
-  i_mem_asym (
+    .B_DATA_WIDTH (DMA_DATA_WIDTH)
+  ) i_mem_asym (
     .clka (axi_clk),
     .wea (axi_dvalid),
     .addra (axi_waddr),
@@ -202,7 +202,9 @@ module axi_adcfifo_dma #(
     .addrb (dma_raddr),
     .doutb (dma_rdata_s));
 
-  ad_axis_inf_rx #(.DATA_WIDTH(DMA_DATA_WIDTH)) i_axis_inf (
+  ad_axis_inf_rx #(
+    .DATA_WIDTH(DMA_DATA_WIDTH)
+  ) i_axis_inf (
     .clk (dma_clk),
     .rst (dma_rst),
     .valid (dma_rd_d),
@@ -213,7 +215,9 @@ module axi_adcfifo_dma #(
     .inf_data (dma_wdata),
     .inf_ready (dma_wready));
 
-  up_xfer_status #(.DATA_WIDTH(4)) i_xfer_status (
+  up_xfer_status #(
+    .DATA_WIDTH(4)
+  ) i_xfer_status (
     .up_rstn (~dma_rst),
     .up_clk (dma_clk),
     .up_data_status (dma_xfer_status),

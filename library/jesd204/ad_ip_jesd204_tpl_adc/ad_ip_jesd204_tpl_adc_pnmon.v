@@ -38,8 +38,7 @@ module ad_ip_jesd204_tpl_adc_pnmon #(
   output pn_err,
 
   // processor interface PN9 (0x0), PN23 (0x1)
-  input [3:0] pn_seq_sel
-);
+  input [3:0] pn_seq_sel);
 
   localparam DW = DATA_PATH_WIDTH*CONVERTER_RESOLUTION-1;
 

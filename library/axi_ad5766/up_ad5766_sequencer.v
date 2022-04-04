@@ -214,7 +214,9 @@ module up_ad5766_sequencer #(
 
   // CDC
 
-  up_xfer_cntrl #(.DATA_WIDTH(132)) i_xfer_cntrl (
+  up_xfer_cntrl #(
+    .DATA_WIDTH(132)
+  ) i_xfer_cntrl (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_data_cntrl ({up_endof_seq,

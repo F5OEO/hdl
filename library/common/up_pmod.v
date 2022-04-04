@@ -118,11 +118,17 @@ module up_pmod #(
 
   // resets
 
-  ad_rst i_adc_rst_reg (.rst_async(up_preset_s), .clk(pmod_clk), .rstn(), .rst(pmod_rst));
+  ad_rst i_adc_rst_reg (
+    .rst_async(up_preset_s),
+    .clk(pmod_clk),
+    .rstn(),
+    .rst(pmod_rst));
 
   // adc control & status
 
-  up_xfer_status #(.DATA_WIDTH(32)) i_pmod_xfer_status (
+  up_xfer_status #(
+    .DATA_WIDTH(32)
+  ) i_pmod_xfer_status (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_data_status (up_pmod_signal_freq_s),

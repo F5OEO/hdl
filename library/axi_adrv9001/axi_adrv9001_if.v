@@ -158,8 +158,7 @@ module axi_adrv9001_if #(
   input             tx2_single_lane,
   input             tx2_sdr_ddr_n,
   input             tx2_symb_op,
-  input             tx2_symb_8_16b
-);
+  input             tx2_symb_8_16b);
 
   // Tx has an extra lane to drive the clock
   localparam TX_NUM_LANES = NUM_LANES + 1;

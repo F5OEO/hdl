@@ -53,7 +53,7 @@ module axi_pwm_gen_regmap #(
   parameter  PULSE_0_OFFSET = 0,
   parameter  PULSE_1_OFFSET = 0,
   parameter  PULSE_2_OFFSET = 0,
-  parameter  PULSE_3_OFFSET = 0)(
+  parameter  PULSE_3_OFFSET = 0) (
 
   // external clock
 
@@ -79,8 +79,7 @@ module axi_pwm_gen_regmap #(
   input                   up_rreq,
   input       [13:0]      up_raddr,
   output reg  [31:0]      up_rdata,
-  output reg              up_rack
-);
+  output reg              up_rack);
 
   // internal registers
 

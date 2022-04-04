@@ -42,7 +42,7 @@ module address_generator #(
   parameter DMA_ADDR_WIDTH = 32,
   parameter BEATS_PER_BURST_WIDTH = 4,
   parameter BYTES_PER_BEAT_WIDTH = $clog2(DMA_DATA_WIDTH/8),
-  parameter LENGTH_WIDTH = 8)(
+  parameter LENGTH_WIDTH = 8) (
 
   input                        clk,
   input                        resetn,
@@ -70,8 +70,7 @@ module address_generator #(
   output     [ 2:0]               size,
   output     [ 1:0]               burst,
   output     [ 2:0]               prot,
-  output     [ 3:0]               cache
-);
+  output     [ 3:0]               cache);
 
 localparam MAX_BEATS_PER_BURST = {1'b1,{BEATS_PER_BURST_WIDTH{1'b0}}};
 localparam MAX_LENGTH = {BEATS_PER_BURST_WIDTH{1'b1}};

@@ -109,9 +109,7 @@ module util_fifo2axi_bridge #(
   input       [ 1:0]                          axi_rresp,
   input                                       axi_rlast,
   input       [(AXI_DATA_WIDTH-1):0]          axi_rdata,
-  output                                      axi_rready
-
-);
+  output                                      axi_rready);
 
 // AXI Memory Mapped related parameters
 localparam AXI_BYTE_WIDTH = AXI_DATA_WIDTH/8;
@@ -214,8 +212,7 @@ i_source_cdc_fifo (
   .m_axis_tlast   (axi_wlast_int_s),
   .m_axis_level   (axi_wcdc_level_s),
   .m_axis_empty   (axi_wcdc_empty),
-  .m_axis_almost_empty (axi_wcdc_almost_empty) // almost empty should be set to a full burst
-);
+  .m_axis_almost_empty (axi_wcdc_almost_empty)); // almost empty should be set to a full burst
 
 // save the last TKEEP for read
 // NOTE: we are writing invalid data to the memory in case of a fractional last beat
@@ -511,8 +508,7 @@ i_destination_cdc_fifo (
   .m_axis_tkeep   (fifo_dst_tkeep_int_s),
   .m_axis_tlast   (),
   .m_axis_almost_empty (fifo_dst_almost_empty_s),
-  .m_axis_empty   (fifo_dst_empty_s)                                           // if asserted the memory can not keep up with the DAC rate
-);
+  .m_axis_empty   (fifo_dst_empty_s)); // if asserted the memory can not keep up with the DAC rate
 
 // Assuming that the EMIF has a higher bandwidth than the destination
 // interface, load at least one burst into CDC FIFO
@@ -562,8 +558,8 @@ generate
       .ALMOST_FULL_THRESHOLD (8),
       .REMOVE_NULL_BEAT_EN (1),
       .TKEEP_EN (1),
-      .TLAST_EN (0))
-    i_null_filter_fifo (
+      .TLAST_EN (0)
+    ) i_null_filter_fifo (
       .s_axis_aclk    (fifo_dst_clk),
       .s_axis_aresetn (fifo_nf_resetn),
       .s_axis_ready   (fifo_dst_tready_int_s),

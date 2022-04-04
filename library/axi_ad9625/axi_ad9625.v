@@ -143,8 +143,8 @@ module axi_ad9625 #(
   assign adc_valid = 1'b1;
 
   axi_ad9625_if #(
-    .ID (ID))
-  i_if (
+    .ID (ID)
+  ) i_if (
     .rx_clk (rx_clk),
     .rx_sof (rx_sof),
     .rx_data (rx_data),
@@ -194,8 +194,8 @@ module axi_ad9625 #(
     .DRP_DISABLE(1),
     .USERPORTS_DISABLE(1),
     .GPIO_DISABLE(1),
-    .START_CODE_DISABLE(1))
-  i_up_adc_common (
+    .START_CODE_DISABLE(1)
+  ) i_up_adc_common (
     .mmcm_rst (),
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),

@@ -127,8 +127,8 @@ module axi_adcfifo #(
 
   axi_adcfifo_adc #(
     .AXI_DATA_WIDTH (AXI_DATA_WIDTH),
-    .ADC_DATA_WIDTH (ADC_DATA_WIDTH))
-  i_adc_if (
+    .ADC_DATA_WIDTH (ADC_DATA_WIDTH)
+  ) i_adc_if (
     .adc_rst (adc_rst),
     .adc_clk (adc_clk),
     .adc_wr (adc_wr),
@@ -145,8 +145,8 @@ module axi_adcfifo #(
     .AXI_SIZE (AXI_SIZE),
     .AXI_LENGTH (AXI_LENGTH),
     .AXI_ADDRESS (AXI_ADDRESS),
-    .AXI_ADDRESS_LIMIT (AXI_ADDRESS_LIMIT))
-  i_wr (
+    .AXI_ADDRESS_LIMIT (AXI_ADDRESS_LIMIT)
+  ) i_wr (
     .dma_xfer_req (dma_xfer_req),
     .axi_rd_req (axi_rd_req_s),
     .axi_rd_addr (axi_rd_addr_s),
@@ -188,8 +188,8 @@ module axi_adcfifo #(
     .AXI_SIZE (AXI_SIZE),
     .AXI_LENGTH (AXI_LENGTH),
     .AXI_ADDRESS (AXI_ADDRESS),
-    .AXI_ADDRESS_LIMIT (AXI_ADDRESS_LIMIT))
-  i_rd (
+    .AXI_ADDRESS_LIMIT (AXI_ADDRESS_LIMIT)
+  ) i_rd (
     .dma_xfer_req (dma_xfer_req),
     .axi_rd_req (axi_rd_req_s),
     .axi_rd_addr (axi_rd_addr_s),
@@ -223,8 +223,8 @@ module axi_adcfifo #(
   axi_adcfifo_dma #(
     .AXI_DATA_WIDTH (AXI_DATA_WIDTH),
     .DMA_DATA_WIDTH (DMA_DATA_WIDTH),
-    .DMA_READY_ENABLE (DMA_READY_ENABLE))
-  i_dma_if (
+    .DMA_READY_ENABLE (DMA_READY_ENABLE)
+  ) i_dma_if (
     .axi_clk (axi_clk),
     .axi_drst (axi_drst_s),
     .axi_dvalid (axi_dvalid_s),
@@ -240,5 +240,3 @@ module axi_adcfifo #(
 
 endmodule
 
-// ***************************************************************************
-// ***************************************************************************

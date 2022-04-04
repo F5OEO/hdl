@@ -41,7 +41,7 @@
 //
 // Constraints:
 //   - O_W <= I_W
-//   - LATENCY 1 
+//   - LATENCY 1
 //   - no backpressure
 //
 // Data format:
@@ -61,8 +61,8 @@ module ad_upack #(
   parameter I_W = 4,
   parameter O_W = 3,
   parameter UNIT_W = 8,
-  parameter O_REG = 1
-) (
+  parameter O_REG = 1) (
+
   input                   clk,
   input                   reset,
   input [I_W*UNIT_W-1:0]  idata,
@@ -70,14 +70,13 @@ module ad_upack #(
   output                  iready,
 
   output reg [O_W*UNIT_W-1:0] odata = 'h0,
-  output reg                  ovalid = 'b0
-);
+  output reg                  ovalid = 'b0);
 
 // Width of shift reg is integer multiple of output data width
 localparam SH_W = ((I_W/O_W)+1)*O_W;
 localparam STEP = I_W % O_W;
 
-localparam LATENCY = 1; // Minimum input latency from iready to ivalid 
+localparam LATENCY = 1; // Minimum input latency from iready to ivalid
 
 integer i;
 

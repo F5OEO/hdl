@@ -166,8 +166,8 @@ module axi_dacfifo_rd #(
     .A_ADDRESS_WIDTH (AXI_MEM_ADDRESS_WIDTH),
     .A_DATA_WIDTH (AXI_DATA_WIDTH),
     .B_ADDRESS_WIDTH (DAC_MEM_ADDRESS_WIDTH),
-    .B_DATA_WIDTH (DAC_DATA_WIDTH))
-  i_mem_asym (
+    .B_DATA_WIDTH (DAC_DATA_WIDTH)
+  ) i_mem_asym (
     .clka (axi_clk),
     .wea (axi_dvalid_s),
     .addra (axi_mem_waddr),
@@ -392,8 +392,8 @@ module axi_dacfifo_rd #(
 
   axi_dacfifo_address_buffer #(
     .ADDRESS_WIDTH (4),
-    .DATA_WIDTH (DAC_MEM_ADDRESS_WIDTH))
-  i_laddress_buffer (
+    .DATA_WIDTH (DAC_MEM_ADDRESS_WIDTH)
+  ) i_laddress_buffer (
     .clk (dac_clk),
     .rst (dac_fifo_reset_s),
     .wea (dac_laddr_wea),

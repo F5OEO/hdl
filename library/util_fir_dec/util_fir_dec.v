@@ -61,8 +61,7 @@ module util_fir_dec (
     .s_axis_data_tready(s_axis_data_tready),
     .s_axis_data_tdata(s_axis_data_tdata),
     .m_axis_data_tvalid(m_axis_data_tvalid_s),
-    .m_axis_data_tdata(m_axis_data_tdata_s)
-  );
+    .m_axis_data_tdata(m_axis_data_tdata_s));
 
-endmodule  // util_fir_dec
+endmodule
 

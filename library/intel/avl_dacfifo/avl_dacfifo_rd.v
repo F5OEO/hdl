@@ -432,8 +432,8 @@ module avl_dacfifo_rd #(
   end
   ad_mem #(
     .DATA_WIDTH (DAC_MEM_ADDRESS_WIDTH),
-    .ADDRESS_WIDTH (8))
-  i_mem (
+    .ADDRESS_WIDTH (8)
+  ) i_mem (
     .clka (dac_clk),
     .wea (dac_mem_laddr_wea_s),
     .addra (dac_mem_laddr_waddr),

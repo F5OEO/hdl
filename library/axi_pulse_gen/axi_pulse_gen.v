@@ -101,8 +101,8 @@ module axi_pulse_gen #(
     .CORE_MAGIC (CORE_MAGIC),
     .CORE_VERSION (CORE_VERSION),
     .PULSE_WIDTH (PULSE_WIDTH),
-    .PULSE_PERIOD (PULSE_PERIOD))
-  i_regmap (
+    .PULSE_PERIOD (PULSE_PERIOD)
+  ) i_regmap (
     .ext_clk (ext_clk),
     .clk_out (clk),
     .pulse_gen_resetn (pulse_gen_resetn),
@@ -122,8 +122,8 @@ module axi_pulse_gen #(
 
   util_pulse_gen  #(
     .PULSE_WIDTH(PULSE_WIDTH),
-    .PULSE_PERIOD(PULSE_PERIOD))
-  util_pulse_gen_i(
+    .PULSE_PERIOD(PULSE_PERIOD)
+  ) util_pulse_gen_i (
     .clk (clk),
     .rstn (pulse_gen_resetn),
     .pulse_width (pulse_width_s),
@@ -132,8 +132,8 @@ module axi_pulse_gen #(
     .pulse (pulse));
 
   up_axi #(
-    .AXI_ADDRESS_WIDTH(16))
-  i_up_axi (
+    .AXI_ADDRESS_WIDTH(16)
+  ) i_up_axi (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_axi_awvalid (s_axi_awvalid),

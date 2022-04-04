@@ -45,8 +45,8 @@ module axi_dmac_burst_memory #(
   parameter BYTES_PER_BURST_WIDTH = $clog2(MAX_BYTES_PER_BURST),
   parameter DMA_LENGTH_ALIGN = 3,
   parameter ENABLE_DIAGNOSTICS_IF = 0,
-  parameter ALLOW_ASYM_MEM = 0
-) (
+  parameter ALLOW_ASYM_MEM = 0) (
+
   input src_clk,
   input src_reset,
 
@@ -77,8 +77,7 @@ module axi_dmac_burst_memory #(
   output [ID_WIDTH-1:0] dest_data_response_id,
 
   // Diagnostics interface
-  output  [7:0] dest_diag_level_bursts
-);
+  output  [7:0] dest_diag_level_bursts);
 
 localparam DATA_WIDTH_MEM = DATA_WIDTH_SRC > DATA_WIDTH_DEST ?
   DATA_WIDTH_SRC : DATA_WIDTH_DEST;
@@ -369,8 +368,7 @@ axi_dmac_resize_src #(
   .mem_data (src_mem_data),
   .mem_data_last (src_mem_data_last),
   .mem_data_valid_bytes (src_mem_data_valid_bytes),
-  .mem_data_partial_burst (src_mem_data_partial_burst)
-);
+  .mem_data_partial_burst (src_mem_data_partial_burst));
 
 assign src_burst_len_data = {src_mem_data_partial_burst,
                              src_beat_counter,
@@ -390,8 +388,7 @@ ad_mem_asym #(
   .clkb (dest_clk),
   .reb (dest_beat),
   .addrb (dest_raddr),
-  .doutb (dest_mem_data)
-);
+  .doutb (dest_mem_data));
 
 axi_dmac_resize_dest #(
   .DATA_WIDTH_DEST (DATA_WIDTH_DEST),
@@ -410,8 +407,7 @@ axi_dmac_resize_dest #(
   .dest_data_ready (dest_data_ready),
   .dest_data (dest_data),
   .dest_data_last (dest_data_last),
-  .dest_data_strb (dest_data_strb)
-);
+  .dest_data_strb (dest_data_strb));
 
 sync_bits #(
   .NUM_OF_BITS (ID_WIDTH),
@@ -420,8 +416,7 @@ sync_bits #(
   .in_bits (src_id),
   .out_clk (dest_clk),
   .out_resetn (1'b1),
-  .out_bits (dest_src_id)
-);
+  .out_bits (dest_src_id));
 
 sync_bits #(
   .NUM_OF_BITS (ID_WIDTH),
@@ -430,8 +425,7 @@ sync_bits #(
   .in_bits (dest_id),
   .out_clk (src_clk),
   .out_resetn (1'b1),
-  .out_bits (src_dest_id)
-);
+  .out_bits (src_dest_id));
 
 assign dest_request_id = dest_src_id;
 assign dest_data_response_id = dest_id;
@@ -456,3 +450,4 @@ end
 endgenerate
 
 endmodule
+

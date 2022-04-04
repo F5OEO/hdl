@@ -119,8 +119,7 @@ module axi_rd_wr_combiner (
   output  [ 1:0]                s_rd_axi_rresp,
   output  [63:0]                s_rd_axi_rdata,
   output                        s_rd_axi_rlast,
-  input                         s_rd_axi_rready
-);
+  input                         s_rd_axi_rready);
 
 assign m_axi_awaddr = s_wr_axi_awaddr;
 assign m_axi_awlen = s_wr_axi_awlen;

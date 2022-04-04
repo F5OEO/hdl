@@ -112,8 +112,8 @@ module ad_serdes_clk #(
       .MMCM_CLK1_DIV (MMCM_CLK1_DIV),
       .MMCM_CLK1_PHASE (0.0),
       .MMCM_CLK2_DIV (MMCM_CLK0_DIV),
-      .MMCM_CLK2_PHASE (90.0))
-    i_mmcm_drp (
+      .MMCM_CLK2_PHASE (90.0)
+    ) i_mmcm_drp (
       .clk (clk_in_s),
       .clk2 (1'b0),
       .clk_sel (1'b1),
@@ -139,7 +139,9 @@ module ad_serdes_clk #(
       .I (clk_in_s),
       .O (clk));
 
-    BUFR #(.BUFR_DIVIDE(BUFR_DIVIDE)) i_div_clk_buf (
+    BUFR #(
+      .BUFR_DIVIDE(BUFR_DIVIDE)
+    ) i_div_clk_buf (
       .CLR (1'b0),
       .CE (1'b1),
       .I (clk_in_s),
@@ -154,7 +156,4 @@ module ad_serdes_clk #(
   endgenerate
 
 endmodule
-
-// ***************************************************************************
-// ***************************************************************************
 

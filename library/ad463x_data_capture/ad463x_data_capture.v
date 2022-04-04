@@ -42,8 +42,7 @@
 module ad463x_data_capture #(
   parameter DDR_EN = 0,
   parameter NUM_OF_LANES = 2,
-  parameter DATA_WIDTH = 32
-) (
+  parameter DATA_WIDTH = 32) (
 
   input                                     clk,          // core clock of the SPIE
   input                                     csn,          // CSN (chip select)
@@ -52,9 +51,7 @@ module ad463x_data_capture #(
 
   output [(NUM_OF_LANES * DATA_WIDTH)-1:0]  m_axis_data,  // parallel data lines
   output                                    m_axis_valid, // data validation
-  input                                     m_axis_ready  // NOTE: back pressure is ignored
-
-);
+  input                                     m_axis_ready);  // NOTE: back pressure is ignored
 
 reg csn_d;
 

@@ -254,8 +254,8 @@ module util_mfifo #(
   for (n = 0; n < NUM_OF_CHANNELS; n = n + 1) begin: g_channels
   ad_mem #(
     .ADDRESS_WIDTH (ADDRESS_WIDTH),
-    .DATA_WIDTH (DIN_DATA_WIDTH))
-  i_mem (
+    .DATA_WIDTH (DIN_DATA_WIDTH)
+  ) i_mem (
     .clka (din_clk),
     .wea (din_wr),
     .addra (din_waddr),

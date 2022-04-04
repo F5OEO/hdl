@@ -116,7 +116,9 @@ module axi_ad9963_rx_channel #(
   assign adc_dfmt_valid_s = adc_valid;
   assign adc_dfmt_data_s = {{4{adc_data[11]}}, adc_data};
   end else begin
-  ad_datafmt #(.DATA_WIDTH (12)) i_ad_datafmt (
+  ad_datafmt #(
+    .DATA_WIDTH (12)
+  ) i_ad_datafmt (
     .clk (adc_clk),
     .valid (adc_valid),
     .data (adc_data),
@@ -145,10 +147,11 @@ module axi_ad9963_rx_channel #(
   end
   endgenerate
 
-  ad_iqcor #(.Q_OR_I_N (Q_OR_I_N),
-             .DISABLE(IQCORRECTION_DISABLE == 1),
-             .SCALE_ONLY(SCALECORRECTION_ONLY))
-    i_ad_iqcor (
+  ad_iqcor #(
+    .Q_OR_I_N (Q_OR_I_N),
+    .DISABLE(IQCORRECTION_DISABLE == 1),
+    .SCALE_ONLY(SCALECORRECTION_ONLY)
+  ) i_ad_iqcor (
     .clk (adc_clk),
     .valid (adc_dcfilter_valid_s),
     .data_in (adc_dcfilter_data_s),

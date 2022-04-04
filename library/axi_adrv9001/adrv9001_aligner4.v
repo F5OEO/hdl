@@ -42,8 +42,7 @@ module adrv9001_aligner4 (
   input             ivalid,
   input       [3:0] strobe,
   output reg  [3:0] odata,
-  output            ovalid
-);
+  output            ovalid);
 
   reg [3:0] idata_d = 'b0;
   reg       ivalid_d = 'b0;

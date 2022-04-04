@@ -58,8 +58,8 @@ module axi_dmac_transfer #(
   parameter AXI_LENGTH_WIDTH_SRC = 8,
   parameter AXI_LENGTH_WIDTH_DEST = 8,
   parameter ENABLE_DIAGNOSTICS_IF = 0,
-  parameter ALLOW_ASYM_MEM = 0
-) (
+  parameter ALLOW_ASYM_MEM = 0) (
+
   input ctrl_clk,
   input ctrl_resetn,
 
@@ -173,8 +173,7 @@ module axi_dmac_transfer #(
   output [11:0] dbg_status,
 
   // Diagnostics interface
-  output [7:0] dest_diag_level_bursts
-);
+  output [7:0] dest_diag_level_bursts);
 
 wire dma_req_valid;
 wire dma_req_ready;
@@ -238,8 +237,7 @@ axi_dmac_reset_manager #(
   .src_enable (src_enable),
   .src_enabled (src_enabled),
 
-  .dbg_status (dbg_status)
-);
+  .dbg_status (dbg_status));
 
 /*
  * Things become a lot easier if we gate incoming requests in a central place
@@ -291,8 +289,7 @@ dmac_2d_transfer #(
   .out_measured_burst_length (dma_req_measured_burst_length),
   .out_response_partial (dma_response_partial),
   .out_response_valid (dma_response_valid),
-  .out_response_ready (dma_response_ready)
-  );
+  .out_response_ready (dma_response_ready));
 
 end else begin
 
@@ -449,7 +446,7 @@ request_arb #(
   .dbg_src_data_id (dbg_src_data_id),
   .dbg_src_response_id (dbg_src_response_id),
 
-  .dest_diag_level_bursts(dest_diag_level_bursts)
-);
+  .dest_diag_level_bursts(dest_diag_level_bursts));
 
 endmodule
+

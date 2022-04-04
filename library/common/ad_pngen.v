@@ -32,8 +32,8 @@ module ad_pngen #(
   parameter POL_W = 7,
 
   // Number of output bits at every clock cycle
-  parameter DW = 16
-) (
+  parameter DW = 16) (
+
   input           clk,
   input           reset,
   input           clk_en,
@@ -44,9 +44,7 @@ module ad_pngen #(
 
   // Input stream to synchronize to (Optional)
   input           pn_init,
-  input  [DW-1:0] pn_data_in
-
-);
+  input  [DW-1:0] pn_data_in);
 
   /* We need at least enough bits to store the PN state */
   localparam PN_W = DW > POL_W ? DW : POL_W;

@@ -86,7 +86,9 @@ module axi_ad9625_channel (
   genvar n;
   generate
   for (n = 0; n < 16; n = n + 1) begin: g_ad_datafmt_1
-  ad_datafmt #(.DATA_WIDTH(12)) i_ad_datafmt (
+  ad_datafmt #(
+    .DATA_WIDTH(12)
+  ) i_ad_datafmt (
     .clk (adc_clk),
     .valid (1'b1),
     .data (adc_data[n*12+11:n*12]),
@@ -104,8 +106,8 @@ module axi_ad9625_channel (
     .USERPORTS_DISABLE(1),
     .DATAFORMAT_DISABLE(0),
     .DCFILTER_DISABLE(1),
-    .IQCORRECTION_DISABLE(1))
-  i_up_adc_channel (
+    .IQCORRECTION_DISABLE(1)
+  ) i_up_adc_channel (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_enable (adc_enable),

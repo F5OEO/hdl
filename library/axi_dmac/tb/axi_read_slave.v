@@ -39,8 +39,8 @@ module axi_read_slave #(
   parameter DATA_WIDTH = 32,
   parameter READ_ACCEPTANCE = 4,
   parameter MIN_LATENCY = 48,
-  parameter MAX_LATENCY = 48
-) (
+  parameter MAX_LATENCY = 48) (
+
   input clk,
   input reset,
 
@@ -57,8 +57,7 @@ module axi_read_slave #(
   input rready,
   output [DATA_WIDTH-1:0] rdata,
   output [1:0] rresp,
-  output rlast
-);
+  output rlast);
 
 reg [DATA_WIDTH-1:0] data = 'h00;
 
@@ -95,7 +94,6 @@ axi_slave #(
   .beat_stb(rvalid),
   .beat_ack(rvalid & rready),
   .beat_last(rlast),
-  .beat_addr(beat_addr)
-);
+  .beat_addr(beat_addr));
 
 endmodule

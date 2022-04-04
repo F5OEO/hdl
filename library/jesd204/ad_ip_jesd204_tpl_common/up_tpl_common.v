@@ -38,9 +38,8 @@
 module up_tpl_common #(
 
   // parameters
-  parameter COMMON_ID = 2'h0,  // Offset of regmap
-  parameter NUM_PROFILES = 1   // Number of JESD profiles
-  )(
+  parameter COMMON_ID = 2'h0,   // Offset of regmap
+  parameter NUM_PROFILES = 1) ( // Number of JESD profiles
 
   input [NUM_PROFILES*8-1: 0] jesd_m,
   input [NUM_PROFILES*8-1: 0] jesd_l,
@@ -62,8 +61,7 @@ module up_tpl_common #(
   input               up_rreq,
   input       [10:0]  up_raddr,
   output      [31:0]  up_rdata,
-  output              up_rack
-);
+  output              up_rack);
 
   // internal registers
   reg             up_rack_int = 'd0;

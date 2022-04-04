@@ -42,7 +42,7 @@ module src_axi_mm #(
   parameter DMA_ADDR_WIDTH = 32,
   parameter BYTES_PER_BEAT_WIDTH = 3,
   parameter BEATS_PER_BURST_WIDTH = 4,
-  parameter AXI_LENGTH_WIDTH = 8)(
+  parameter AXI_LENGTH_WIDTH = 8) (
 
   input                           m_axi_aclk,
   input                           m_axi_aresetn,
@@ -92,8 +92,7 @@ module src_axi_mm #(
   output                           m_axi_rready,
   input                            m_axi_rvalid,
   input                            m_axi_rlast,
-  input  [ 1:0]                    m_axi_rresp
-);
+  input  [ 1:0]                    m_axi_rresp);
 
 `include "inc_id.vh"
 
@@ -137,14 +136,11 @@ splitter #(
   .m_valid({
     bl_valid,
     bl_valid_ag,
-    req_valid_ag
-  }),
+    req_valid_ag}),
   .m_ready({
     bl_ready,
     bl_ready_ag,
-    req_ready_ag
-  })
-);
+    req_ready_ag}));
 
 address_generator #(
   .ID_WIDTH(ID_WIDTH),
@@ -180,8 +176,7 @@ address_generator #(
   .size(m_axi_arsize),
   .burst(m_axi_arburst),
   .prot(m_axi_arprot),
-  .cache(m_axi_arcache)
-);
+  .cache(m_axi_arcache));
 
 assign fifo_valid = m_axi_rvalid;
 assign fifo_data = m_axi_rdata;

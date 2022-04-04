@@ -191,8 +191,8 @@ module axi_tdd (
   // instantiations
 
   up_tdd_cntrl #(
-    .BASE_ADDRESS('h0))
-  i_up_tdd_cntrl(
+    .BASE_ADDRESS('h0)
+  ) i_up_tdd_cntrl(
     .clk(clk),
     .rst(rst),
     .tdd_enable(tdd_enable_s),
@@ -243,8 +243,8 @@ module axi_tdd (
 
   ad_tdd_control #(
     .TX_DATA_PATH_DELAY(0),
-    .CONTROL_PATH_DELAY(0))
-  i_tdd_control(
+    .CONTROL_PATH_DELAY(0)
+  ) i_tdd_control(
     .clk(clk),
     .rst(rst),
     .tdd_enable(tdd_enable_s),
@@ -288,8 +288,8 @@ module axi_tdd (
     .tdd_counter_status(tdd_counter_status));
 
   up_axi #(
-    .AXI_ADDRESS_WIDTH(16))
-  i_up_axi (
+    .AXI_ADDRESS_WIDTH(16)
+  ) i_up_axi (
     .up_rstn(s_axi_aresetn),
     .up_clk(s_axi_aclk),
 

@@ -109,8 +109,8 @@ module util_dacfifo_bypass #(
     .A_ADDRESS_WIDTH (DMA_ADDRESS_WIDTH),
     .A_DATA_WIDTH (DMA_DATA_WIDTH),
     .B_ADDRESS_WIDTH (DAC_ADDRESS_WIDTH),
-    .B_DATA_WIDTH (DAC_DATA_WIDTH))
-  i_mem_asym (
+    .B_DATA_WIDTH (DAC_DATA_WIDTH)
+  ) i_mem_asym (
     .clka (dma_clk),
     .wea (dma_mem_wea_s),
     .addra (dma_mem_waddr),
@@ -144,8 +144,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_b2g #(
-    .DATA_WIDTH (DMA_ADDRESS_WIDTH))
-  i_dma_mem_waddr_b2g (
+    .DATA_WIDTH (DMA_ADDRESS_WIDTH)
+  ) i_dma_mem_waddr_b2g (
     .din (dma_mem_waddr),
     .dout (dma_mem_waddr_b2g_s));
 
@@ -172,8 +172,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_g2b #(
-    .DATA_WIDTH (DAC_ADDRESS_WIDTH))
-  i_dma_mem_raddr_g2b (
+    .DATA_WIDTH (DAC_ADDRESS_WIDTH)
+  ) i_dma_mem_raddr_g2b (
     .din (dma_mem_raddr_m2),
     .dout (dma_mem_raddr_m2_g2b_s));
 
@@ -218,8 +218,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_b2g #(
-    .DATA_WIDTH (DAC_ADDRESS_WIDTH))
-  i_dac_mem_raddr_b2g (
+    .DATA_WIDTH (DAC_ADDRESS_WIDTH)
+  ) i_dac_mem_raddr_b2g (
     .din (dac_mem_raddr),
     .dout (dac_mem_raddr_b2g_s));
 
@@ -238,8 +238,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_g2b #(
-    .DATA_WIDTH (DMA_ADDRESS_WIDTH))
-  i_dac_mem_waddr_g2b (
+    .DATA_WIDTH (DMA_ADDRESS_WIDTH)
+  ) i_dac_mem_waddr_g2b (
     .din (dac_mem_waddr_m2),
     .dout (dac_mem_waddr_m2_g2b_s));
 

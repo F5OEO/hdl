@@ -45,9 +45,9 @@
 //
 // Data format:
 //  idata  [U(I_W-1) .... U(0)]
-//  odata [U(O_W-1) .... U(0)] 
+//  odata [U(O_W-1) .... U(0)]
 //
-// e.g 
+// e.g
 //  I_W = 4
 //  O_W = 6
 //  UNIT_W = 8
@@ -61,16 +61,15 @@ module ad_pack #(
   parameter O_W = 6,
   parameter UNIT_W = 8,
   parameter I_REG = 0,
-  parameter O_REG = 1
-) (
+  parameter O_REG = 1) (
+
   input                   clk,
   input                   reset,
   input [I_W*UNIT_W-1:0]  idata,
   input                   ivalid,
 
   output reg [O_W*UNIT_W-1:0] odata = 'h0,
-  output reg                  ovalid = 'b0
-);
+  output reg                  ovalid = 'b0);
 
 // Width of shift reg is integer multiple of input data width
 localparam SH_W = ((O_W/I_W)+|(O_W % I_W))*I_W;

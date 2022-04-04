@@ -165,8 +165,8 @@ module util_adcfifo #(
 
   sync_gray #(
     .DATA_WIDTH (ADC_ADDRESS_WIDTH),
-    .ASYNC_CLK (1))
-  i_dma_waddr_sync (
+    .ASYNC_CLK (1)
+  ) i_dma_waddr_sync (
     .in_clk (adc_clk),
     .in_resetn (1'b1),
     .in_count (adc_waddr_int),
@@ -223,8 +223,8 @@ module util_adcfifo #(
     .A_ADDRESS_WIDTH (ADC_ADDRESS_WIDTH),
     .A_DATA_WIDTH (ADC_DATA_WIDTH),
     .B_ADDRESS_WIDTH (DMA_ADDRESS_WIDTH),
-    .B_DATA_WIDTH (DMA_DATA_WIDTH))
-  i_mem_asym (
+    .B_DATA_WIDTH (DMA_DATA_WIDTH)
+  ) i_mem_asym (
     .clka (adc_clk),
     .wea (adc_wr_int),
     .addra (adc_waddr_int),
@@ -236,7 +236,9 @@ module util_adcfifo #(
   end
   endgenerate
 
- ad_axis_inf_rx #(.DATA_WIDTH(DMA_DATA_WIDTH)) i_axis_inf (
+  ad_axis_inf_rx #(
+    .DATA_WIDTH(DMA_DATA_WIDTH)
+  ) i_axis_inf (
     .clk (dma_clk),
     .rst (dma_read_rst_s),
     .valid (dma_rd_d),

@@ -45,8 +45,7 @@ module cordic_demod (
 
   output m_axis_valid,
   input m_axis_ready,
-  output [63:0] m_axis_data
-);
+  output [63:0] m_axis_data);
 
 reg [4:0] step_counter;
 reg [4:0] shift_counter;

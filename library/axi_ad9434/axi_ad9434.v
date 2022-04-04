@@ -131,8 +131,8 @@ module axi_ad9434 #(
 
   axi_ad9434_if #(
     .FPGA_TECHNOLOGY(FPGA_TECHNOLOGY),
-    .IO_DELAY_GROUP(IO_DELAY_GROUP))
-  i_if(
+    .IO_DELAY_GROUP(IO_DELAY_GROUP)
+  ) i_if (
     .adc_clk_in_p(adc_clk_in_p),
     .adc_clk_in_n(adc_clk_in_n),
     .adc_data_in_p(adc_data_in_p),

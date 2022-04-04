@@ -114,8 +114,8 @@ generate
       .ALMOST_EMPTY_THRESHOLD (A_ALMOST_EMPTY_THRESHOLD),
       .ALMOST_FULL_THRESHOLD (A_ALMOST_FULL_THRESHOLD),
       .TKEEP_EN (TKEEP_EN),
-      .TLAST_EN (TLAST_EN))
-    i_fifo (
+      .TLAST_EN (TLAST_EN)
+    ) i_fifo (
       .m_axis_aclk    (m_axis_aclk),
       .m_axis_aresetn (m_axis_aresetn),
       .m_axis_ready   (m_axis_ready_int_s[i]),

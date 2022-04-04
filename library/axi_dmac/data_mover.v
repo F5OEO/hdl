@@ -79,8 +79,7 @@ module data_mover #(
   output req_ready,
   input [BEATS_PER_BURST_WIDTH-1:0] req_last_burst_length,
   input req_sync_transfer_start,
-  input req_xlast
-);
+  input req_xlast);
 
 localparam BEAT_COUNTER_MAX = {BEATS_PER_BURST_WIDTH{1'b1}};
 

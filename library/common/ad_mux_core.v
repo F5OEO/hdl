@@ -38,13 +38,12 @@
 module ad_mux_core #(
   parameter CH_W = 16,
   parameter CH_CNT = 8,
-  parameter EN_REG = 0
-) (
+  parameter EN_REG = 0) (
+
   input clk,
   input [CH_W*CH_CNT-1:0] data_in,
   input [$clog2(CH_CNT)-1:0] ch_sel,
-  output [CH_W-1:0] data_out
-);
+  output [CH_W-1:0] data_out);
 
 wire [CH_W-1:0] data_out_loc;
 

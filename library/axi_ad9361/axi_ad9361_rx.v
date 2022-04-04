@@ -194,8 +194,8 @@ module axi_ad9361_rx #(
     .USERPORTS_DISABLE (USERPORTS_DISABLE),
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
-    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE))
-  i_rx_channel_0 (
+    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE)
+  ) i_rx_channel_0 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
@@ -231,8 +231,8 @@ module axi_ad9361_rx #(
     .USERPORTS_DISABLE (USERPORTS_DISABLE),
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
-    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE))
-  i_rx_channel_1 (
+    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE)
+  ) i_rx_channel_1 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
@@ -268,8 +268,8 @@ module axi_ad9361_rx #(
     .USERPORTS_DISABLE (USERPORTS_DISABLE),
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
-    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE))
-  i_rx_channel_2 (
+    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE)
+  ) i_rx_channel_2 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
@@ -305,8 +305,8 @@ module axi_ad9361_rx #(
     .USERPORTS_DISABLE (USERPORTS_DISABLE),
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
-    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE))
-  i_rx_channel_3 (
+    .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE)
+  ) i_rx_channel_3 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid),
@@ -345,8 +345,8 @@ module axi_ad9361_rx #(
     .DRP_DISABLE (1),
     .USERPORTS_DISABLE (USERPORTS_DISABLE),
     .GPIO_DISABLE (0),
-    .START_CODE_DISABLE (0))
-  i_up_adc_common (
+    .START_CODE_DISABLE (0)
+  ) i_up_adc_common (
     .mmcm_rst (mmcm_rst),
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
@@ -397,8 +397,8 @@ module axi_ad9361_rx #(
   up_delay_cntrl #(
     .INIT_DELAY (INIT_DELAY),
     .DATA_WIDTH (13),
-    .BASE_ADDRESS (6'h02))
-  i_delay_cntrl (
+    .BASE_ADDRESS (6'h02)
+  ) i_delay_cntrl (
     .delay_clk (delay_clk),
     .delay_rst (delay_rst),
     .delay_locked (delay_locked),
@@ -417,7 +417,4 @@ module axi_ad9361_rx #(
     .up_rack (up_rack_s[5]));
 
 endmodule
-
-// ***************************************************************************
-// ***************************************************************************
 

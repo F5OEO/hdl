@@ -55,8 +55,7 @@ module axi_ad7616_maxis2wrfifo #(
   output  reg             fifo_wr_en,
   output  reg [DATA_WIDTH-1:0]  fifo_wr_data,
   output  reg             fifo_wr_sync,
-  input                   fifo_wr_xfer_req
-);
+  input                   fifo_wr_xfer_req);
 
 
   always @(posedge clk) begin

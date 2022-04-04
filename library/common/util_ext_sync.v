@@ -24,8 +24,8 @@
 `timescale 1ns/100ps
 
 module util_ext_sync #(
-  parameter ENABLED = 1
-) (
+  parameter ENABLED = 1) (
+
   input clk,
 
   input ext_sync_arm,
@@ -33,9 +33,7 @@ module util_ext_sync #(
 
   input sync_in,
 
-  output reg sync_armed = 1'b0
-
-);
+  output reg sync_armed = 1'b0);
 
   reg sync_in_d1 = 1'b0;
   reg sync_in_d2 = 1'b0;

@@ -35,8 +35,7 @@
 
 `timescale 1ns/100ps
 
-module axi_intr_monitor
-(
+module axi_intr_monitor (
   output          irq,
 
 // axi interface
@@ -61,9 +60,7 @@ module axi_intr_monitor
   output  [31:0]  s_axi_rdata,
   input           s_axi_rready,
   input   [ 2:0]  s_axi_awprot,
-  input   [ 2:0]  s_axi_arprot
-
-);
+  input   [ 2:0]  s_axi_arprot);
 
 parameter VERSION = 32'h00010000;
 
@@ -203,7 +200,7 @@ end
 
 // up bus interface
 
-up_axi i_up_axi(
+up_axi i_up_axi (
   .up_rstn(s_axi_aresetn),
   .up_clk(s_axi_aclk),
   .up_axi_awvalid(s_axi_awvalid),
@@ -234,5 +231,3 @@ up_axi i_up_axi(
 
 endmodule
 
-// ***************************************************************************
-// ***************************************************************************

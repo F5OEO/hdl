@@ -44,8 +44,8 @@ module axi_dmac_resize_src #(
   parameter DATA_WIDTH_SRC = 64,
   parameter BYTES_PER_BEAT_WIDTH_SRC = 3,
   parameter DATA_WIDTH_MEM = 64,
-  parameter BYTES_PER_BEAT_WIDTH_MEM = 3
-) (
+  parameter BYTES_PER_BEAT_WIDTH_MEM = 3) (
+
   input clk,
   input reset,
 
@@ -59,8 +59,7 @@ module axi_dmac_resize_src #(
   output [DATA_WIDTH_MEM-1:0] mem_data,
   output mem_data_last,
   output [BYTES_PER_BEAT_WIDTH_MEM-1:0] mem_data_valid_bytes,
-  output mem_data_partial_burst
-);
+  output mem_data_partial_burst);
 
 generate if (DATA_WIDTH_SRC == DATA_WIDTH_MEM)  begin
   assign mem_data_valid = src_data_valid;

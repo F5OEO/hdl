@@ -39,7 +39,7 @@ module src_fifo_inf #(
 
   parameter ID_WIDTH = 3,
   parameter DATA_WIDTH = 64,
-  parameter BEATS_PER_BURST_WIDTH = 4)(
+  parameter BEATS_PER_BURST_WIDTH = 4) (
 
   input clk,
   input resetn,
@@ -68,8 +68,7 @@ module src_fifo_inf #(
   input req_valid,
   output req_ready,
   input [BEATS_PER_BURST_WIDTH-1:0] req_last_burst_length,
-  input req_sync_transfer_start
-);
+  input req_sync_transfer_start);
 
 wire ready;
 wire valid;
@@ -119,7 +118,6 @@ data_mover # (
 
   .m_axi_valid(fifo_valid),
   .m_axi_data(fifo_data),
-  .m_axi_last(fifo_last)
-);
+  .m_axi_last(fifo_last));
 
 endmodule

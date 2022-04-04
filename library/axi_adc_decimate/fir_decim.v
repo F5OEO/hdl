@@ -36,15 +36,14 @@
 `timescale 1 ns / 1 ns
 
 module fir_decim #(
-  parameter USE_DSP48E = 1
-) (
+  parameter USE_DSP48E = 1) (
+
   input clk,
   input clk_enable,
   input reset,
   input signed [11:0] filter_in,
   output reg signed [25:0] filter_out,
-  output reg ce_out
-);
+  output reg ce_out);
 
   localparam signed [11:0] coeffphase1_1 = 12'b000011010101; //sfix12_En11
   localparam signed [11:0] coeffphase1_2 = 12'b011011110010; //sfix12_En11

@@ -48,8 +48,7 @@ module ad_iqcor #(
   parameter   SCALE_ONLY = 0,
   parameter   DISABLE = 0,
   parameter   CR = 16,   // Converter Resolution
-  parameter   DPW = 1    // Data Path Width
-) (
+  parameter   DPW = 1) (    // Data Path Width
 
   // data interface
 
@@ -64,8 +63,7 @@ module ad_iqcor #(
 
   input           iqcor_enable,
   input   [15:0]  iqcor_coeff_1,
-  input   [15:0]  iqcor_coeff_2
-);
+  input   [15:0]  iqcor_coeff_2);
 
   // internal registers
 
@@ -122,7 +120,9 @@ module ad_iqcor #(
 
       // scaling functions - i
 
-      ad_mul #(.DELAY_DATA_WIDTH(CR+1)) i_mul_i (
+      ad_mul #(
+        .DELAY_DATA_WIDTH(CR+1)
+      ) i_mul_i (
         .clk (clk),
         .data_a ({data_i_s[CR-1], data_i_s, {16-CR{1'b0}}}),
         .data_b ({iqcor_coeff_1_r[15], iqcor_coeff_1_r}),
@@ -133,7 +133,9 @@ module ad_iqcor #(
       if (SCALE_ONLY == 0) begin
         // scaling functions - q
 
-        ad_mul #(.DELAY_DATA_WIDTH(CR)) i_mul_q (
+        ad_mul #(
+          .DELAY_DATA_WIDTH(CR)
+        ) i_mul_q (
           .clk (clk),
           .data_a ({data_q_s[CR-1], data_q_s, {16-CR{1'b0}}}),
           .data_b ({iqcor_coeff_2_r[15], iqcor_coeff_2_r}),

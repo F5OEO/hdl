@@ -159,8 +159,8 @@ module axi_ad9122_core #(
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
     .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
-    .DATAPATH_DISABLE(DATAPATH_DISABLE))
-  i_channel_0 (
+    .DATAPATH_DISABLE(DATAPATH_DISABLE)
+  ) i_channel_0 (
     .dac_div_clk (dac_div_clk),
     .dac_rst (dac_rst),
     .dac_enable (dac_enable_0),
@@ -188,8 +188,8 @@ module axi_ad9122_core #(
     .DAC_DDS_TYPE (DAC_DDS_TYPE),
     .DAC_DDS_CORDIC_DW (DAC_DDS_CORDIC_DW),
     .DAC_DDS_CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
-    .DATAPATH_DISABLE(DATAPATH_DISABLE))
-  i_channel_1 (
+    .DATAPATH_DISABLE(DATAPATH_DISABLE)
+  ) i_channel_1 (
     .dac_div_clk (dac_div_clk),
     .dac_rst (dac_rst),
     .dac_enable (dac_enable_1),
@@ -223,8 +223,8 @@ module axi_ad9122_core #(
     .COMMON_ID (6'h10),
     .DRP_DISABLE (6'h00),
     .USERPORTS_DISABLE (0),
-    .GPIO_DISABLE (0))
-  i_up_dac_common (
+    .GPIO_DISABLE (0)
+  ) i_up_dac_common (
     .mmcm_rst (mmcm_rst),
     .dac_clk (dac_div_clk),
     .dac_rst (dac_rst),

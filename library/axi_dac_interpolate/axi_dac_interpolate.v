@@ -212,8 +212,8 @@ module axi_dac_interpolate #(
   assign underflow = underflow_a | underflow_b;
 
   axi_dac_interpolate_filter #(
-    .CORRECTION_DISABLE(CORRECTION_DISABLE))
-    i_filter_a (
+    .CORRECTION_DISABLE(CORRECTION_DISABLE)
+  ) i_filter_a (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
 
@@ -242,8 +242,8 @@ module axi_dac_interpolate #(
   );
 
   axi_dac_interpolate_filter #(
-    .CORRECTION_DISABLE(CORRECTION_DISABLE))
-    i_filter_b (
+    .CORRECTION_DISABLE(CORRECTION_DISABLE)
+  ) i_filter_b (
     .dac_clk (dac_clk),
     .dac_rst (dac_rst),
 

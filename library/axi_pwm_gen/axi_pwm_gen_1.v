@@ -49,8 +49,7 @@ module axi_pwm_gen_1 #(
   input               sync,
 
   output  reg         pulse,
-  output      [31:0]  pulse_counter
-);
+  output      [31:0]  pulse_counter);
 
   // internal registers
 

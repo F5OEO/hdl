@@ -157,8 +157,8 @@ module axi_ad9265 #(
 
   axi_ad9265_channel #(
     .CHANNEL_ID(0),
-    .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE))
-  i_channel (
+    .DATAPATH_DISABLE (ADC_DATAPATH_DISABLE)
+  ) i_channel (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_data (adc_data_s),
@@ -184,8 +184,8 @@ module axi_ad9265 #(
 
   axi_ad9265_if #(
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
-    .IO_DELAY_GROUP (IO_DELAY_GROUP))
-  i_if (
+    .IO_DELAY_GROUP (IO_DELAY_GROUP)
+  ) i_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
     .adc_data_in_p (adc_data_in_p),
@@ -206,7 +206,10 @@ module axi_ad9265 #(
 
   // adc delay control
 
-  up_delay_cntrl #(.DATA_WIDTH(9), .BASE_ADDRESS(6'h02)) i_delay_cntrl (
+  up_delay_cntrl #(
+    .DATA_WIDTH(9),
+    .BASE_ADDRESS(6'h02)
+  ) i_delay_cntrl (
     .delay_clk (delay_clk),
     .delay_rst (delay_rst),
     .delay_locked (delay_locked_s),
@@ -237,8 +240,8 @@ module axi_ad9265 #(
     .DRP_DISABLE (6'h00),
     .USERPORTS_DISABLE (0),
     .GPIO_DISABLE (0),
-    .START_CODE_DISABLE(0))
-  i_up_adc_common (
+    .START_CODE_DISABLE(0)
+  ) i_up_adc_common (
     .mmcm_rst (),
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
@@ -313,7 +316,4 @@ module axi_ad9265 #(
     .up_rack (up_rack));
 
 endmodule
-
-// ***************************************************************************
-// ***************************************************************************
 

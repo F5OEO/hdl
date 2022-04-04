@@ -40,8 +40,7 @@ module ad_sysref_gen (
     input       core_clk,
 
     input       sysref_en,
-    output reg  sysref_out
-);
+    output reg  sysref_out);
 
   // SYSREF period is multiple of core_clk, and has a duty cycle of 50%
   // NOTE: if SYSREF always on (this is a JESD204 IP configuration),

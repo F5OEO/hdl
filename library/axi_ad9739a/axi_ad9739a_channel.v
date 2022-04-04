@@ -169,8 +169,8 @@ module axi_ad9739a_channel #(
     .DDS_TYPE (DAC_DDS_TYPE),
     .CORDIC_DW (DAC_DDS_CORDIC_DW),
     .CORDIC_PHASE_DW (DAC_DDS_CORDIC_PHASE_DW),
-    .CLK_RATIO (16))
-  i_dds (
+    .CLK_RATIO (16)
+  ) i_dds (
     .clk (dac_div_clk),
     .dac_dds_format (dac_dds_format),
     .dac_data_sync (dac_data_sync),
@@ -185,7 +185,9 @@ module axi_ad9739a_channel #(
 
   // single channel processor
 
-  up_dac_channel #(.CHANNEL_ID(CHANNEL_ID)) i_up_dac_channel (
+  up_dac_channel #(
+    .CHANNEL_ID(CHANNEL_ID)
+  ) i_up_dac_channel (
     .dac_clk (dac_div_clk),
     .dac_rst (dac_rst),
     .dac_dds_scale_1 (dac_dds_scale_1_s),

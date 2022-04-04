@@ -63,8 +63,8 @@ module axi_hdmi_tx #(
   output                  hdmi_24_vsync,
   output                  hdmi_24_data_e,
   output      [23:0]      hdmi_24_data,
-  
-  // VGA interface 
+
+  // VGA interface
 
   output                  vga_hsync,
   output                  vga_vsync,
@@ -267,8 +267,8 @@ module axi_hdmi_tx #(
   axi_hdmi_tx_core #(
     .INTERFACE(INTERFACE),
     .CR_CB_N(CR_CB_N),
-    .EMBEDDED_SYNC(EMBEDDED_SYNC))
-  i_tx_core (
+    .EMBEDDED_SYNC(EMBEDDED_SYNC)
+  )  i_tx_core (
     .reference_clk (reference_clk),
     .reference_rst (reference_rst),
     .hdmi_16_hsync (hdmi_16_hsync),
@@ -320,7 +320,9 @@ module axi_hdmi_tx #(
 
   generate
   if (FPGA_TECHNOLOGY == XILINX_ULTRASCALE || FPGA_TECHNOLOGY == XILINX_ULTRASCALE_PLUS) begin
-  ODDRE1 #(.SRVAL(1'b0)) i_clk_oddr (
+  ODDRE1 #(
+    .SRVAL(1'b0)
+  ) i_clk_oddr (
     .SR (1'b0),
     .D1 (~OUT_CLK_POLARITY),
     .D2 (OUT_CLK_POLARITY),
@@ -328,7 +330,9 @@ module axi_hdmi_tx #(
     .Q (hdmi_out_clk));
   end
   if (FPGA_TECHNOLOGY == INTEL_5SERIES) begin
-  altddio_out #(.WIDTH(1)) i_clk_oddr (
+  altddio_out #(
+    .WIDTH(1)
+  ) i_clk_oddr (
     .aclr (1'b0),
     .aset (1'b0),
     .sclr (1'b0),
@@ -342,7 +346,9 @@ module axi_hdmi_tx #(
     .dataout (hdmi_out_clk));
   end
   if (FPGA_TECHNOLOGY == XILINX_7SERIES) begin
-  ODDR #(.INIT(1'b0)) i_clk_oddr (
+  ODDR #(
+    .INIT(1'b0)
+  ) i_clk_oddr (
     .R (1'b0),
     .S (1'b0),
     .CE (1'b1),

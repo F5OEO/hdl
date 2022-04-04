@@ -159,8 +159,8 @@ module axi_ad9671 #(
 
   axi_ad9671_if #(
     .QUAD_OR_DUAL_N (QUAD_OR_DUAL_N),
-    .ID (ID))
-  i_if (
+    .ID (ID)
+  )  i_if (
     .rx_clk (rx_clk),
     .rx_data (rx_data),
     .rx_sof (rx_sof),
@@ -197,7 +197,9 @@ module axi_ad9671 #(
   genvar n;
   generate
   for (n = 0; n < 8; n = n + 1) begin: g_channel
-  axi_ad9671_channel #(.CHANNEL_ID(n)) i_channel (
+  axi_ad9671_channel #(
+    .CHANNEL_ID(n)
+  ) i_channel (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid (adc_valid_s),

@@ -47,8 +47,8 @@ module axi_dmac_regmap_request #(
   parameter HAS_DEST_ADDR = 1,
   parameter HAS_SRC_ADDR = 1,
   parameter DMA_2D_TRANSFER = 0,
-  parameter SYNC_TRANSFER_START = 0
-) (
+  parameter SYNC_TRANSFER_START = 0) (
+
   input clk,
   input reset,
 
@@ -84,9 +84,7 @@ module axi_dmac_regmap_request #(
   input [BYTES_PER_BURST_WIDTH-1:0] response_measured_burst_length,
   input response_partial,
   input response_valid,
-  output reg response_ready = 1'b1
-
-);
+  output reg response_ready = 1'b1);
 
 localparam MEASURED_LENGTH_WIDTH = (DMA_2D_TRANSFER == 1) ? 32 : DMA_LENGTH_WIDTH;
 
@@ -301,7 +299,7 @@ util_axis_fifo #(
   .s_axis_full(),
   .s_axis_data({up_transfer_id_eot_d, up_measured_transfer_length}),
   .s_axis_room(),
-  
+
   .m_axis_aclk(clk),
   .m_axis_aresetn(ctrl_enable),
   .m_axis_valid(up_tlf_valid),

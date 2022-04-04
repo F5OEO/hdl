@@ -39,7 +39,7 @@ module axi_register_slice #(
 
   parameter DATA_WIDTH = 32,
   parameter FORWARD_REGISTERED = 0,
-  parameter BACKWARD_REGISTERED = 0)(
+  parameter BACKWARD_REGISTERED = 0) (
 
   input clk,
   input resetn,
@@ -50,8 +50,7 @@ module axi_register_slice #(
 
   output m_axi_valid,
   input m_axi_ready,
-  output [DATA_WIDTH-1:0] m_axi_data
-);
+  output [DATA_WIDTH-1:0] m_axi_data);
 
 /*
  s_axi_data  -> bwd_data     -> fwd_data(1)  -> m_axi_data

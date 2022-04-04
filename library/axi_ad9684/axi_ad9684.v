@@ -168,8 +168,8 @@ module axi_ad9684 #(
   axi_ad9684_if #(
     .FPGA_TECHNOLOGY(FPGA_TECHNOLOGY),
     .IO_DELAY_GROUP(IO_DELAY_GROUP),
-    .OR_STATUS (OR_STATUS))
-  i_ad9684_if (
+    .OR_STATUS (OR_STATUS)
+  ) i_ad9684_if (
     .adc_clk_in_p (adc_clk_in_p),
     .adc_clk_in_n (adc_clk_in_n),
     .adc_data_in_p (adc_data_in_p),
@@ -217,8 +217,8 @@ module axi_ad9684 #(
     .DRP_DISABLE (6'h00),
     .USERPORTS_DISABLE (0),
     .GPIO_DISABLE (0),
-    .START_CODE_DISABLE(0))
-  i_up_adc_common (
+    .START_CODE_DISABLE(0)
+  ) i_up_adc_common (
     .mmcm_rst (rst_s),
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
@@ -265,8 +265,8 @@ module axi_ad9684 #(
 
   axi_ad9684_channel #(
     .CHANNEL_ID (0),
-    .Q_OR_I_N (0))
-  i_channel_0 (
+    .Q_OR_I_N (0)
+  ) i_channel_0 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_data (adc_rawdata_0_s),
@@ -293,8 +293,8 @@ module axi_ad9684 #(
 
   axi_ad9684_channel #(
     .CHANNEL_ID (1),
-    .Q_OR_I_N (1))
-  i_channel_1 (
+    .Q_OR_I_N (1)
+  ) i_channel_1 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_data (adc_rawdata_1_s),
@@ -320,8 +320,8 @@ module axi_ad9684 #(
   // adc delay control instance
 
   up_delay_cntrl #(
-    .DATA_WIDTH(15))
-  i_delay_cntrl (
+    .DATA_WIDTH(15)
+  ) i_delay_cntrl (
     .delay_clk (delay_clk),
     .delay_rst (delay_rst),
     .delay_locked (delay_locked_s),

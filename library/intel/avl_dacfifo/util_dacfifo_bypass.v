@@ -58,8 +58,7 @@ module util_dacfifo_bypass #(
   input                               dac_rst,
   input                               dac_valid,
   output  reg [(DAC_DATA_WIDTH-1):0]  dac_data,
-  output  reg                         dac_dunf
-);
+  output  reg                         dac_dunf);
 
   // supported ratios: 1:1 / 1:2 / 1:4 / 1:8 / 2:1 / 4:1 / 8:1
 
@@ -142,8 +141,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_b2g #(
-    .DATA_WIDTH (DMA_ADDRESS_WIDTH))
-  i_dma_mem_waddr_b2g (
+    .DATA_WIDTH (DMA_ADDRESS_WIDTH)
+  ) i_dma_mem_waddr_b2g (
     .din (dma_mem_waddr),
     .dout (dma_mem_waddr_b2g_s));
 
@@ -170,8 +169,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_g2b #(
-    .DATA_WIDTH (DAC_ADDRESS_WIDTH))
-  i_dma_mem_raddr_g2b (
+    .DATA_WIDTH (DAC_ADDRESS_WIDTH)
+  ) i_dma_mem_raddr_g2b (
     .din (dma_mem_raddr_m2),
     .dout (dma_mem_raddr_m2_g2b_s));
 
@@ -220,8 +219,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_b2g #(
-    .DATA_WIDTH (DAC_ADDRESS_WIDTH))
-  i_dac_mem_raddr_b2g (
+    .DATA_WIDTH (DAC_ADDRESS_WIDTH)
+  ) i_dac_mem_raddr_b2g (
     .din (dac_mem_raddr),
     .dout (dac_mem_raddr_b2g_s));
 
@@ -240,8 +239,8 @@ module util_dacfifo_bypass #(
   end
 
   ad_g2b #(
-    .DATA_WIDTH (DMA_ADDRESS_WIDTH))
-  i_dac_mem_waddr_g2b (
+    .DATA_WIDTH (DMA_ADDRESS_WIDTH)
+  ) i_dac_mem_waddr_g2b (
     .din (dac_mem_waddr_m2),
     .dout (dac_mem_waddr_m2_g2b_s));
 

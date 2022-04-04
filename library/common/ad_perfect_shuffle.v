@@ -26,11 +26,10 @@
 module ad_perfect_shuffle #(
   parameter NUM_GROUPS = 2,
   parameter WORDS_PER_GROUP = 2,
-  parameter WORD_WIDTH = 8
-) (
+  parameter WORD_WIDTH = 8) (
+
   input [NUM_GROUPS*WORDS_PER_GROUP*WORD_WIDTH-1:0] data_in,
-  output [NUM_GROUPS*WORDS_PER_GROUP*WORD_WIDTH-1:0] data_out
-);
+  output [NUM_GROUPS*WORDS_PER_GROUP*WORD_WIDTH-1:0] data_out);
  /*
   * Performs the perfect shuffle operation.
   *

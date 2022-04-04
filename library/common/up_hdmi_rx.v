@@ -230,7 +230,9 @@ module up_hdmi_rx #(
 
   // hdmi control & status
 
-  up_xfer_cntrl #(.DATA_WIDTH(36)) i_hdmi_xfer_cntrl (
+  up_xfer_cntrl #(
+    .DATA_WIDTH(36)
+  ) i_hdmi_xfer_cntrl (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_data_cntrl ({ up_edge_sel,
@@ -249,7 +251,9 @@ module up_hdmi_rx #(
                       hdmi_vs_count,
                       hdmi_hs_count}));
 
-  up_xfer_status #(.DATA_WIDTH(39)) i_hdmi_xfer_status (
+  up_xfer_status #(
+    .DATA_WIDTH(39)
+  ) i_hdmi_xfer_status (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_data_status ({  up_dma_ovf_s,

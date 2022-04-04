@@ -105,8 +105,7 @@ module axi_adrv9001_rx #(
   input                   up_rreq,
   input       [ 13:0]     up_raddr,
   output  reg [ 31:0]     up_rdata,
-  output  reg             up_rack
-);
+  output  reg             up_rack);
 
 generate
 if (ENABLED == 0) begin : core_disabled
@@ -199,8 +198,8 @@ end else begin : core_enabled
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
-    .DATA_WIDTH (16))
-  i_rx_channel_0 (
+    .DATA_WIDTH (16)
+  ) i_rx_channel_0 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid_in (adc_valid_A),
@@ -236,8 +235,8 @@ end else begin : core_enabled
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
-    .DATA_WIDTH (16))
-  i_rx_channel_1 (
+    .DATA_WIDTH (16)
+  ) i_rx_channel_1 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid_in (adc_valid_A),
@@ -273,8 +272,8 @@ end else begin : core_enabled
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
-    .DATA_WIDTH (16))
-  i_rx_channel_2 (
+    .DATA_WIDTH (16)
+  ) i_rx_channel_2 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid_in (adc_valid_B),
@@ -310,8 +309,8 @@ end else begin : core_enabled
     .DATAFORMAT_DISABLE (DATAFORMAT_DISABLE),
     .DCFILTER_DISABLE (DCFILTER_DISABLE),
     .IQCORRECTION_DISABLE (IQCORRECTION_DISABLE),
-    .DATA_WIDTH (16))
-  i_rx_channel_3 (
+    .DATA_WIDTH (16)
+  ) i_rx_channel_3 (
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_valid_in (adc_valid_B),
@@ -350,8 +349,8 @@ end else begin : core_enabled
     .DRP_DISABLE(1),
     .USERPORTS_DISABLE(1),
     .GPIO_DISABLE(1),
-    .START_CODE_DISABLE(1))
-  i_up_adc_common (
+    .START_CODE_DISABLE(1)
+  ) i_up_adc_common (
     .mmcm_rst (),
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),

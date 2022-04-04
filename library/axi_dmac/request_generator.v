@@ -38,7 +38,7 @@
 module request_generator #(
 
   parameter ID_WIDTH = 3,
-  parameter BURSTS_PER_TRANSFER_WIDTH = 17)(
+  parameter BURSTS_PER_TRANSFER_WIDTH = 17) (
 
   input clk,
   input resetn,
@@ -65,8 +65,7 @@ module request_generator #(
 
   input enable,
 
-  output eot
-);
+  output eot);
 
 `include "inc_id.vh"
 

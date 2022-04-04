@@ -470,12 +470,23 @@ module up_dac_common #(
 
   // resets
 
-  ad_rst i_mmcm_rst_reg (.rst_async(up_mmcm_preset), .clk(up_clk),  .rstn(), .rst(mmcm_rst));
-  ad_rst i_core_rst_reg (.rst_async(up_core_preset), .clk(dac_clk), .rstn(), .rst(dac_rst_s));
+  ad_rst i_mmcm_rst_reg (
+    .rst_async(up_mmcm_preset),
+    .clk(up_clk),
+    .rstn(),
+    .rst(mmcm_rst));
+
+  ad_rst i_core_rst_reg (
+    .rst_async(up_core_preset),
+    .clk(dac_clk),
+    .rstn(),
+    .rst(dac_rst_s));
 
   // dac control & status
 
-  up_xfer_cntrl #(.DATA_WIDTH(35)) i_xfer_cntrl (
+  up_xfer_cntrl #(
+    .DATA_WIDTH(35)
+  ) i_xfer_cntrl (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_data_cntrl ({ up_dac_sdr_ddr_n,
@@ -519,7 +530,9 @@ module up_dac_common #(
   // This is important at start-up when stable set of controls is required.
   assign dac_rst = ~dac_rst_n;
 
-  up_xfer_status #(.DATA_WIDTH(3)) i_xfer_status (
+  up_xfer_status #(
+    .DATA_WIDTH(3)
+  ) i_xfer_status (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_data_status ({up_sync_in_status,

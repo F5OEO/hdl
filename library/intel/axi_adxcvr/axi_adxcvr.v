@@ -106,8 +106,8 @@ module axi_adxcvr #(
     .DEV_PACKAGE (DEV_PACKAGE),
     .FPGA_VOLTAGE (FPGA_VOLTAGE),
     .TX_OR_RX_N (TX_OR_RX_N),
-    .NUM_OF_LANES (NUM_OF_LANES))
-  i_up (
+    .NUM_OF_LANES (NUM_OF_LANES)
+  ) i_up (
     .up_rst (up_rst),
     .up_pll_locked (up_pll_locked),
     .up_ready (up_ready),

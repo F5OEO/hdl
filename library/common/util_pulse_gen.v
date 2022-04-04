@@ -37,7 +37,7 @@
 module util_pulse_gen #(
 
   parameter   PULSE_WIDTH = 7,
-  parameter   PULSE_PERIOD = 100000000)(         // t_period * clk_freq
+  parameter   PULSE_PERIOD = 100000000) (         // t_period * clk_freq
 
   input               clk,
   input               rstn,
@@ -47,8 +47,7 @@ module util_pulse_gen #(
   input               load_config,
 
   output  reg         pulse,
-  output      [31:0]  pulse_counter
-);
+  output      [31:0]  pulse_counter);
 
   // internal registers
 

@@ -62,8 +62,8 @@ module axi_dmac #(
   parameter DMA_AXIS_DEST_W = 4,
   parameter DISABLE_DEBUG_REGISTERS = 0,
   parameter ENABLE_DIAGNOSTICS_IF = 0,
-  parameter ALLOW_ASYM_MEM = 0
-) (
+  parameter ALLOW_ASYM_MEM = 0) (
+
   // Slave AXI interface
   input s_axi_aclk,
   input s_axi_aresetn,
@@ -230,8 +230,7 @@ module axi_dmac #(
   output                                   fifo_rd_xfer_req,
 
   // Diagnostics interface
-  output  [7:0] dest_diag_level_bursts
-);
+  output  [7:0] dest_diag_level_bursts);
 
 
 localparam DMA_TYPE_AXI_MM = 0;
@@ -463,8 +462,7 @@ axi_dmac_regmap #(
   .dbg_src_addr(m_src_axi_araddr),
   .dbg_status(dbg_status),
   .dbg_ids0(dbg_ids0),
-  .dbg_ids1(dbg_ids1)
-);
+  .dbg_ids1(dbg_ids1));
 
 axi_dmac_transfer #(
   .DMA_DATA_WIDTH_SRC(DMA_DATA_WIDTH_SRC),
@@ -593,8 +591,7 @@ axi_dmac_transfer #(
   .dbg_src_response_id(src_response_id),
   .dbg_status(dbg_status),
 
-  .dest_diag_level_bursts(dest_diag_level_bursts)
-);
+  .dest_diag_level_bursts(dest_diag_level_bursts));
 
 assign m_dest_axi_arvalid = 1'b0;
 assign m_dest_axi_rready = 1'b0;

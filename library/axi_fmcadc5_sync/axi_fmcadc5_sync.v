@@ -770,8 +770,8 @@ module axi_fmcadc5_sync #(
     .IODELAY_ENABLE (1),
     .IODELAY_CTRL (1),
     .IODELAY_GROUP ("FMCADC5_SYSREF_IODELAY_GROUP"),
-    .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
-  i_rx_sysref (
+    .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY)
+  ) i_rx_sysref (
     .tx_clk (rx_clk),
     .tx_data_p (rx_sysref_e),
     .tx_data_n (rx_sysref_e),
@@ -818,5 +818,3 @@ module axi_fmcadc5_sync #(
 
 endmodule
 
-// ***************************************************************************
-// ***************************************************************************

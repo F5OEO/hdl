@@ -188,8 +188,8 @@ module axi_dacfifo_wr #(
     .A_ADDRESS_WIDTH (DMA_MEM_ADDRESS_WIDTH),
     .A_DATA_WIDTH (DMA_DATA_WIDTH),
     .B_ADDRESS_WIDTH (AXI_MEM_ADDRESS_WIDTH),
-    .B_DATA_WIDTH (AXI_DATA_WIDTH))
-  i_mem_asym (
+    .B_DATA_WIDTH (AXI_DATA_WIDTH)
+  ) i_mem_asym (
     .clka (dma_clk),
     .wea (dma_mem_wea_s),
     .addra (dma_mem_waddr),
@@ -200,7 +200,9 @@ module axi_dacfifo_wr #(
     .doutb (axi_mem_rdata_s));
 
   assign axi_reset_s = ~axi_resetn;
-  ad_axis_inf_rx #(.DATA_WIDTH(AXI_DATA_WIDTH)) i_axis_inf (
+  ad_axis_inf_rx #(
+    .DATA_WIDTH(AXI_DATA_WIDTH)
+  ) i_axis_inf (
     .clk (axi_clk),
     .rst (axi_reset_s),
     .valid (axi_mem_rvalid_d),
@@ -259,7 +261,7 @@ module axi_dacfifo_wr #(
     end
   end
 
-  ad_b2g # (
+  ad_b2g #(
     .DATA_WIDTH(DMA_MEM_ADDRESS_WIDTH)
   ) i_dma_mem_waddr_b2g (
     .din (dma_mem_waddr),
@@ -287,7 +289,7 @@ module axi_dacfifo_wr #(
     end
   end
 
-  ad_g2b # (
+  ad_g2b #(
     .DATA_WIDTH(AXI_MEM_ADDRESS_WIDTH)
   ) i_dma_mem_raddr_g2b (
     .din (dma_mem_raddr_m2),
@@ -408,7 +410,7 @@ module axi_dacfifo_wr #(
     end
   end
 
-  ad_g2b # (
+  ad_g2b #(
     .DATA_WIDTH(DMA_MEM_ADDRESS_WIDTH)
   ) i_axi_mem_waddr_g2b (
     .din (axi_mem_waddr_m2),
@@ -467,7 +469,7 @@ module axi_dacfifo_wr #(
     end
   end
 
-  ad_b2g # (
+  ad_b2g #(
     .DATA_WIDTH(AXI_MEM_ADDRESS_WIDTH)
   ) i_axi_mem_raddr_b2g (
     .din (axi_mem_raddr),

@@ -54,8 +54,7 @@ module ad_pnmon #(
   // pn out of sync and error
 
   output                      adc_pn_oos,
-  output                      adc_pn_err
-);
+  output                      adc_pn_err);
 
   localparam CNT_W = $clog2(OOS_THRESHOLD);
 

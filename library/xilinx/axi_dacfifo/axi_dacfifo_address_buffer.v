@@ -64,8 +64,8 @@ module axi_dacfifo_address_buffer #(
 
   ad_mem #(
     .DATA_WIDTH (DATA_WIDTH),
-    .ADDRESS_WIDTH (ADDRESS_WIDTH))
-  i_mem (
+    .ADDRESS_WIDTH (ADDRESS_WIDTH)
+  ) i_mem (
     .clka (clk),
     .wea (wea),
     .addra (waddr),

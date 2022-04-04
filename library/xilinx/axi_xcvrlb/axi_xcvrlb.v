@@ -168,8 +168,8 @@ module axi_xcvrlb #(
   axi_xcvrlb_1 #(
     .XCVR_TYPE (XCVR_TYPE),
     .CPLL_FBDIV_4_5(CPLL_FBDIV_4_5),
-    .CPLL_FBDIV(CPLL_FBDIV))
-  i_xcvrlb_1 (
+    .CPLL_FBDIV(CPLL_FBDIV)
+  ) i_xcvrlb_1 (
     .ref_clk (ref_clk),
     .rx_p (rx_p[n]),
     .rx_n (rx_n[n]),
@@ -179,12 +179,13 @@ module axi_xcvrlb #(
     .up_clk (up_clk),
     .up_resetn (up_resetn),
     .up_status (up_status_s[n]),
-    .up_pll_locked (up_pll_locked_s[n])
-    );
+    .up_pll_locked (up_pll_locked_s[n]));
   end
   endgenerate
 
-  up_axi #(.AXI_ADDRESS_WIDTH (10)) i_axi (
+  up_axi #(
+    .AXI_ADDRESS_WIDTH (10)
+  ) i_axi (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_axi_awvalid (s_axi_awvalid),

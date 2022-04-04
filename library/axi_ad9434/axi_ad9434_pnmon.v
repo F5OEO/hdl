@@ -181,7 +181,9 @@ module axi_ad9434_pnmon (
   end
 
   // pn oos & pn err
-  ad_pnmon #(.DATA_WIDTH(48)) i_pnmon (
+  ad_pnmon #(
+    .DATA_WIDTH(48)
+  ) i_pnmon (
     .adc_clk (adc_clk),
     .adc_valid_in (1'b1),
     .adc_data_in (adc_data_inv_s),

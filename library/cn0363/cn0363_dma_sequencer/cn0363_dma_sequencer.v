@@ -69,8 +69,7 @@ module cn0363_dma_sequencer (
 
   input [13:0] channel_enable,
 
-  output processing_resetn
-);
+  output processing_resetn);
 
 reg [3:0] count = 'h00;
 

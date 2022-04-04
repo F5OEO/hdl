@@ -55,9 +55,7 @@ module  jesd204_versal_gt_adapter_rx (
   output   [1:0]  rx_header,
   output          rx_block_sync,
 
-  input           usr_clk
-
-);
+  input           usr_clk);
 
   // Sync header alignment
   wire rx_bitslip_req_s;

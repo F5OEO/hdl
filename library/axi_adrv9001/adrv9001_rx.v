@@ -42,8 +42,8 @@ module adrv9001_rx #(
   parameter DRP_WIDTH = 5,
   parameter IODELAY_CTRL = 0,
   parameter USE_BUFG = 0,
-  parameter IO_DELAY_GROUP = "dev_if_delay_group"
-) (
+  parameter IO_DELAY_GROUP = "dev_if_delay_group") (
+
   // device interface
   input                   rx_dclk_in_n_NC,
   input                   rx_dclk_in_p_dclk_in,
@@ -79,8 +79,7 @@ module adrv9001_rx #(
   input                   mssi_sync,
   output                  ssi_sync_out,
   input                   ssi_sync_in,
-  output                  ssi_rst
-);
+  output                  ssi_rst);
 
   // Use always DDR mode
   localparam DDR_OR_SDR_N = 1;
@@ -114,8 +113,8 @@ module adrv9001_rx #(
     .DDR_OR_SDR_N (DDR_OR_SDR_N),
     .DATA_WIDTH (NUM_LANES),
     .DRP_WIDTH (DRP_WIDTH),
-    .SERDES_FACTOR (8))
-  i_serdes (
+    .SERDES_FACTOR (8)
+  ) i_serdes (
     .rst (adc_rst|ssi_rst),
     .clk (adc_clk_in_fast),
     .div_clk (adc_clk_div),
@@ -196,7 +195,9 @@ module adrv9001_rx #(
       .I (clk_in_s),
       .O (adc_clk_in_fast));
 
-    BUFR #(.BUFR_DIVIDE("4")) i_div_clk_buf (
+    BUFR #(
+      .BUFR_DIVIDE("4")
+    ) i_div_clk_buf (
       .CLR (mssi_sync),
       .CE (1'b1),
       .I (clk_in_s),
@@ -205,24 +206,19 @@ module adrv9001_rx #(
     if (USE_BUFG == 1) begin
       BUFG I_bufg (
         .I (adc_clk_div_s),
-        .O (adc_clk_div)
-      );
+        .O (adc_clk_div));
     end else begin
       assign adc_clk_div = adc_clk_div_s;
     end
 
-    xpm_cdc_async_rst
-    # (
+    xpm_cdc_async_rst #(
        .DEST_SYNC_FF    (10), // DECIMAL; range: 2-10
        .INIT_SYNC_FF    ( 0), // DECIMAL; 0=disable simulation init values, 1=enable simulation init values
        .RST_ACTIVE_HIGH ( 1)  // DECIMAL; 0=active low reset, 1=active high reset
-      )
-    rst_syncro
-    (
-     .src_arst (mssi_sync  ),
+    ) rst_syncro (
+     .src_arst (mssi_sync),
      .dest_clk (adc_clk_div),
-     .dest_arst(ssi_rst    )
-    );
+     .dest_arst(ssi_rst));
 
   end else begin
     wire adc_clk_in;
@@ -254,8 +250,7 @@ module adrv9001_rx #(
     ) i_clk_buf_fast (
        .O (adc_clk_in_fast),
        .CE (1'b1),
-       .I (adc_clk_in)
-    );
+       .I (adc_clk_in));
 
     BUFGCE_DIV #(
        .BUFGCE_DIVIDE (4),
@@ -266,8 +261,7 @@ module adrv9001_rx #(
        .O (adc_clk_div),
        .CE (1'b1),
        .CLR (ssi_rst),
-       .I (adc_clk_in)
-    );
+       .I (adc_clk_in));
 
     assign ssi_rst = ssi_rst_pos;
 
@@ -280,3 +274,4 @@ module adrv9001_rx #(
   assign adc_clk_ratio = 4;
 
 endmodule
+

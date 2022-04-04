@@ -41,8 +41,8 @@ module axi_dmac_response_manager #(
   parameter DMA_LENGTH_WIDTH = 24,
   parameter BYTES_PER_BURST_WIDTH = 7,
   parameter BYTES_PER_BEAT_WIDTH_SRC = $clog2(DMA_DATA_WIDTH_SRC/8),
-  parameter ASYNC_CLK_DEST_REQ = 1
-)(
+  parameter ASYNC_CLK_DEST_REQ = 1) (
+
   // Interface to destination side
   input dest_clk,
   input dest_resetn,
@@ -68,8 +68,7 @@ module axi_dmac_response_manager #(
   input completion_req_valid,
   output reg completion_req_ready = 1'b1,
   input completion_req_last,
-  input [1:0] completion_transfer_id
-);
+  input [1:0] completion_transfer_id);
 
 localparam STATE_IDLE         = 3'h0;
 localparam STATE_ACC          = 3'h1;
@@ -134,8 +133,7 @@ util_axis_fifo #(
                 response_dest_partial,
                 response_dest_resp_eot}),
   .m_axis_level(),
-  .m_axis_empty()
-);
+  .m_axis_empty());
 
 always @(posedge req_clk)
 begin
@@ -280,3 +278,4 @@ always @(posedge req_clk) begin
 end
 
 endmodule
+

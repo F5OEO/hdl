@@ -81,8 +81,7 @@ module src_axi_stream #(
   output req_ready,
   input [BEATS_PER_BURST_WIDTH-1:0] req_last_burst_length,
   input req_sync_transfer_start,
-  input req_xlast
-);
+  input req_xlast);
 
 assign enabled = enable;
 
@@ -129,7 +128,6 @@ data_mover # (
   .m_axi_valid(fifo_valid),
   .m_axi_data(fifo_data),
   .m_axi_last(fifo_last),
-  .m_axi_partial_burst(fifo_partial_burst)
-);
+  .m_axi_partial_burst(fifo_partial_burst));
 
 endmodule

@@ -53,7 +53,7 @@ module axi_fan_control #(
   parameter     TEMP_50_H         = 70,
   parameter     TEMP_75_L         = 80,
   parameter     TEMP_75_H         = 90,
-  parameter     TEMP_00_L         = 95)(
+  parameter     TEMP_00_L         = 95) (
 
   input       [ 9:0]      temp_in,
   input                   tacho,
@@ -306,8 +306,7 @@ if (INTERNAL_SYSMONE == 1) begin
     .DO(drp_do),
     .DRDY(drp_drdy),
     .EOC(drp_eoc),
-    .EOS(drp_eos)
-  );
+    .EOS(drp_eos));
 end
 endgenerate
 
@@ -321,8 +320,7 @@ util_pulse_gen_i(
   .pulse_width (pwm_width),
   .pulse_period (PWM_PERIOD),
   .load_config (pulse_gen_load_config),
-  .pulse (pulse_gen_out)
-);
+  .pulse (pulse_gen_out));
 
 //state machine
 always @(posedge up_clk)

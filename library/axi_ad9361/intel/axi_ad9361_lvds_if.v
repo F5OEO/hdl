@@ -531,8 +531,8 @@ endgenerate
   generate
   if (FPGA_TECHNOLOGY == ARRIA10) begin
   axi_ad9361_lvds_if_10 #(
-    .RX_NODPA (RX_NODPA))
-  i_axi_ad9361_lvds_if_10 (
+    .RX_NODPA (RX_NODPA)
+  ) i_axi_ad9361_lvds_if_10 (
     .rx_clk_in_p (rx_clk_in_p),
     .rx_clk_in_n (rx_clk_in_n),
     .rx_frame_in_p (rx_frame_in_p),

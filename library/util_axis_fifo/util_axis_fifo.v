@@ -43,8 +43,8 @@ module util_axis_fifo #(
   parameter [ADDRESS_WIDTH-1:0] ALMOST_FULL_THRESHOLD = 16,
   parameter TLAST_EN = 0,
   parameter TKEEP_EN = 0,
-  parameter REMOVE_NULL_BEAT_EN = 0
-) (
+  parameter REMOVE_NULL_BEAT_EN = 0) (
+
   input m_axis_aclk,
   input m_axis_aresetn,
   input m_axis_ready,
@@ -65,8 +65,7 @@ module util_axis_fifo #(
   input s_axis_tlast,
   output [ADDRESS_WIDTH-1:0] s_axis_room,
   output s_axis_full,
-  output s_axis_almost_full
-);
+  output s_axis_almost_full);
 
 localparam MEM_WORD = (TKEEP_EN & TLAST_EN) ? (DATA_WIDTH+DATA_WIDTH/8+1) :
                       (TKEEP_EN)            ? (DATA_WIDTH+DATA_WIDTH/8)   :
@@ -94,8 +93,7 @@ generate if (ADDRESS_WIDTH == 0) begin : zerodeep /* it's not a real FIFO, just 
         .out_clk(m_axis_aclk),
         .out_resetn(m_axis_aresetn),
         .in_bits(s_axis_waddr),
-        .out_bits(m_axis_waddr)
-      );
+        .out_bits(m_axis_waddr));
 
       sync_bits #(
         .NUM_OF_BITS(1),
@@ -104,8 +102,7 @@ generate if (ADDRESS_WIDTH == 0) begin : zerodeep /* it's not a real FIFO, just 
         .out_clk(s_axis_aclk),
         .out_resetn(s_axis_aresetn),
         .in_bits(m_axis_raddr),
-        .out_bits(s_axis_raddr)
-      );
+        .out_bits(s_axis_raddr));
 
       assign m_axis_valid = m_axis_raddr != m_axis_waddr;
       assign m_axis_level = ~m_axis_ready;
@@ -263,8 +260,8 @@ end else begin : fifo /* ADDRESS_WIDTH != 0 - this is a real FIFO implementation
     .ASYNC_CLK(ASYNC_CLK),
     .ADDRESS_WIDTH(ADDRESS_WIDTH),
     .ALMOST_EMPTY_THRESHOLD (ALMOST_EMPTY_THRESHOLD),
-    .ALMOST_FULL_THRESHOLD (ALMOST_FULL_THRESHOLD))
-  i_address_gray (
+    .ALMOST_FULL_THRESHOLD (ALMOST_FULL_THRESHOLD)
+  ) i_address_gray (
     .m_axis_aclk(m_axis_aclk),
     .m_axis_aresetn(m_axis_aresetn),
     .m_axis_ready(_m_axis_ready),
@@ -280,8 +277,7 @@ end else begin : fifo /* ADDRESS_WIDTH != 0 - this is a real FIFO implementation
     .s_axis_full(s_axis_full),
     .s_axis_almost_full(s_axis_almost_full),
     .s_axis_waddr(s_axis_waddr),
-    .s_axis_room(s_axis_room)
-  );
+    .s_axis_room(s_axis_room));
 
   // TLAST and TKEEP support
   if (TLAST_EN & TKEEP_EN) begin
@@ -310,8 +306,8 @@ end else begin : fifo /* ADDRESS_WIDTH != 0 - this is a real FIFO implementation
     // clock crossing correctly
     ad_mem #(
       .DATA_WIDTH (MEM_WORD),
-      .ADDRESS_WIDTH (ADDRESS_WIDTH))
-    i_mem (
+      .ADDRESS_WIDTH (ADDRESS_WIDTH)
+    ) i_mem (
       .clka(s_axis_aclk),
       .wea(s_mem_write),
       .addra(s_axis_waddr),
@@ -319,8 +315,7 @@ end else begin : fifo /* ADDRESS_WIDTH != 0 - this is a real FIFO implementation
       .clkb(m_axis_aclk),
       .reb(m_mem_read),
       .addrb(m_axis_raddr),
-      .doutb(m_axis_data_int_s)
-    );
+      .doutb(m_axis_data_int_s));
 
     assign _m_axis_ready = ~valid || m_axis_ready;
     assign m_axis_valid = valid;

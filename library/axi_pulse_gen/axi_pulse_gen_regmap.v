@@ -41,7 +41,7 @@ module axi_pulse_gen_regmap #(
   parameter [31:0] CORE_VERSION = 0,
   parameter [ 0:0] ASYNC_CLK_EN = 1,
   parameter        PULSE_WIDTH = 7,
-  parameter        PULSE_PERIOD = 10 )(
+  parameter        PULSE_PERIOD = 10) (
 
   // external clock
 
@@ -66,8 +66,7 @@ module axi_pulse_gen_regmap #(
   input                   up_rreq,
   input       [13:0]      up_raddr,
   output reg  [31:0]      up_rdata,
-  output reg              up_rack
-);
+  output reg              up_rack);
 
   // internal registers
 

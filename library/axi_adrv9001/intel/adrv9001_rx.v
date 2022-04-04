@@ -42,8 +42,8 @@ module adrv9001_rx #(
   parameter DRP_WIDTH = 5,
   parameter IODELAY_CTRL = 0,
   parameter USE_BUFG = 0,
-  parameter IO_DELAY_GROUP = "dev_if_delay_group"
-) (
+  parameter IO_DELAY_GROUP = "dev_if_delay_group") (
+
   // device interface
   input                   rx_dclk_in_n_NC,
   input                   rx_dclk_in_p_dclk_in,
@@ -79,8 +79,7 @@ module adrv9001_rx #(
   input                   mssi_sync,
   output                  ssi_sync_out,
   input                   ssi_sync_in,
-  output                  ssi_rst
-);
+  output                  ssi_rst);
 
   reg [3:0] valid_gen = 4'b0001;
 

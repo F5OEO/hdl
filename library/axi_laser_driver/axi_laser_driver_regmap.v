@@ -37,7 +37,7 @@
 module axi_laser_driver_regmap #(
 
   parameter       ID = 0,
-  parameter       LASER_DRIVER_ID = 1 )(
+  parameter       LASER_DRIVER_ID = 1) (
 
   // control and status signals
 
@@ -74,8 +74,7 @@ module axi_laser_driver_regmap #(
   input                   up_rreq,
   input       [13:0]      up_raddr,
   output reg  [31:0]      up_rdata,
-  output reg              up_rack
-);
+  output reg              up_rack);
 
   // internal registers
 

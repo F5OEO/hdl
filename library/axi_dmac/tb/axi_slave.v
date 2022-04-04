@@ -39,8 +39,7 @@ module axi_slave #(
   parameter DATA_WIDTH = 32,
   parameter ACCEPTANCE = 3,
   parameter MIN_LATENCY = 16,
-  parameter MAX_LATENCY = 32
-) (
+  parameter MAX_LATENCY = 32) (
   input clk,
   input reset,
 
@@ -56,8 +55,7 @@ module axi_slave #(
   output beat_stb,
   input beat_ack,
   output [31:0] beat_addr,
-  output beat_last
-);
+  output beat_last);
 
 reg [31:0] timestamp = 'h00;
 

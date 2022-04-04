@@ -38,8 +38,8 @@
 module axi_dmac_reset_manager #(
   parameter ASYNC_CLK_REQ_SRC = 1,
   parameter ASYNC_CLK_SRC_DEST = 1,
-  parameter ASYNC_CLK_DEST_REQ = 1
-) (
+  parameter ASYNC_CLK_DEST_REQ = 1) (
+
   input clk,
   input resetn,
 
@@ -62,8 +62,7 @@ module axi_dmac_reset_manager #(
   output src_enable,
   input src_enabled,
 
-  output [11:0] dbg_status
-);
+  output [11:0] dbg_status);
 
 /*
  * TODO:
@@ -268,8 +267,7 @@ sync_bits #(
   .out_clk (dest_clk),
   .out_resetn (1'b1),
   .in_bits (do_enable),
-  .out_bits (dest_enable)
-);
+  .out_bits (dest_enable));
 
 sync_bits #(
   .NUM_OF_BITS (1),
@@ -278,8 +276,7 @@ sync_bits #(
   .out_clk (clk),
   .out_resetn (1'b1),
   .in_bits (dest_enabled),
-  .out_bits (enabled_dest)
-);
+  .out_bits (enabled_dest));
 
 sync_bits #(
   .NUM_OF_BITS (1),
@@ -288,8 +285,7 @@ sync_bits #(
   .out_clk (src_clk),
   .out_resetn (1'b1),
   .in_bits (do_enable),
-  .out_bits (src_enable)
-);
+  .out_bits (src_enable));
 
 sync_bits #(
   .NUM_OF_BITS (1),
@@ -298,7 +294,7 @@ sync_bits #(
   .out_clk (clk),
   .out_resetn (1'b1),
   .in_bits (src_enabled),
-  .out_bits (enabled_src)
-);
+  .out_bits (enabled_src));
 
 endmodule
+

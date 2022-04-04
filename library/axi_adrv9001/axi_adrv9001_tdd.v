@@ -215,8 +215,8 @@ module axi_adrv9001_tdd #(
 
   ad_tdd_control #(
     .TX_DATA_PATH_DELAY(),
-    .CONTROL_PATH_DELAY())
-  i_tdd_control(
+    .CONTROL_PATH_DELAY()
+  ) i_tdd_control(
     .clk(clk),
     .rst(rst),
     .tdd_enable(tdd_enable_s),

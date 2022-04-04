@@ -36,8 +36,8 @@
 `timescale 1ns/100ps
 
 module avl_adxcvr_octet_swap #(
-  parameter NUM_OF_LANES = 1
-) (
+  parameter NUM_OF_LANES = 1) (
+
   input clk,
   input reset,
 
@@ -49,8 +49,7 @@ module avl_adxcvr_octet_swap #(
   output out_valid,
   input out_ready,
   output [NUM_OF_LANES*32-1:0] out_data,
-  output [3:0] out_sof
-);
+  output [3:0] out_sof);
 
 assign in_ready = out_ready;
 assign out_valid = in_valid;

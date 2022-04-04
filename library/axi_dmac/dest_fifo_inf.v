@@ -39,7 +39,7 @@ module dest_fifo_inf #(
 
   parameter ID_WIDTH = 3,
   parameter DATA_WIDTH = 64,
-  parameter BEATS_PER_BURST_WIDTH = 4)(
+  parameter BEATS_PER_BURST_WIDTH = 4) (
 
   input clk,
   input resetn,
@@ -70,8 +70,7 @@ module dest_fifo_inf #(
   output response_valid,
   input response_ready,
   output response_resp_eot,
-  output [1:0] response_resp
-);
+  output [1:0] response_resp);
 
 `include "inc_id.vh"
 
@@ -138,7 +137,6 @@ response_generator # (
   .resp_valid(response_valid),
   .resp_ready(response_ready),
   .resp_eot(response_resp_eot),
-  .resp_resp(response_resp)
-);
+  .resp_resp(response_resp));
 
 endmodule

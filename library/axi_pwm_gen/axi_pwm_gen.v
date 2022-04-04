@@ -220,8 +220,8 @@ module axi_pwm_gen #(
 
   axi_pwm_gen_1  #(
     .PULSE_WIDTH (PULSE_0_WIDTH),
-    .PULSE_PERIOD (PULSE_0_PERIOD))
-  i0_axi_pwm_gen_1(
+    .PULSE_PERIOD (PULSE_0_PERIOD)
+  ) i0_axi_pwm_gen_1(
     .clk (clk),
     .rstn (pwm_gen_resetn),
     .pulse_width (pwm_width_s[31:0]),
@@ -244,8 +244,8 @@ module axi_pwm_gen #(
     if (N_PWMS >= 2) begin
       axi_pwm_gen_1  #(
         .PULSE_WIDTH (PULSE_1_WIDTH),
-        .PULSE_PERIOD (PULSE_1_PERIOD))
-      i1_axi_pwm_gen_1(
+        .PULSE_PERIOD (PULSE_1_PERIOD)
+      ) i1_axi_pwm_gen_1(
         .clk (clk),
         .rstn (pwm_gen_resetn),
         .pulse_width (pwm_width_s[63:32]),
@@ -270,8 +270,8 @@ module axi_pwm_gen #(
     if (N_PWMS >= 3) begin
       axi_pwm_gen_1  #(
         .PULSE_WIDTH (PULSE_2_WIDTH),
-        .PULSE_PERIOD (PULSE_2_PERIOD))
-      i2_axi_pwm_gen_1(
+        .PULSE_PERIOD (PULSE_2_PERIOD)
+      ) i2_axi_pwm_gen_1(
         .clk (clk),
         .rstn (pwm_gen_resetn),
         .pulse_width (pwm_width_s[95:64]),
@@ -296,8 +296,8 @@ module axi_pwm_gen #(
     if (N_PWMS >= 4) begin
       axi_pwm_gen_1  #(
         .PULSE_WIDTH (PULSE_3_WIDTH),
-        .PULSE_PERIOD (PULSE_3_PERIOD))
-      i3_axi_pwm_gen_1(
+        .PULSE_PERIOD (PULSE_3_PERIOD)
+      ) i3_axi_pwm_gen_1(
         .clk (clk),
         .rstn (pwm_gen_resetn),
         .pulse_width (pwm_width_s[127:96]),
@@ -321,8 +321,8 @@ module axi_pwm_gen #(
   endgenerate
 
   up_axi #(
-    .AXI_ADDRESS_WIDTH(16))
-  i_up_axi (
+    .AXI_ADDRESS_WIDTH(16)
+  ) i_up_axi (
     .up_rstn (up_rstn),
     .up_clk (up_clk),
     .up_axi_awvalid (s_axi_awvalid),

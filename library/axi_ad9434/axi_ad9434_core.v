@@ -122,17 +122,17 @@ module axi_ad9434_core #(
   genvar n;
   generate
   for (n = 0; n < 4; n = n + 1) begin: g_ad_dfmt
-   ad_datafmt # (
-    .DATA_WIDTH(12))
-  i_datafmt (
-    .clk (adc_clk),
-    .valid (1'b1),
-    .data (adc_data[n*12+11:n*12]),
-    .valid_out (dma_dvalid),
-    .data_out (dma_data[n*16+15:n*16]),
-    .dfmt_enable (adc_dfmt_enable_s),
-    .dfmt_type (adc_dfmt_type_s),
-    .dfmt_se (adc_dfmt_se_s));
+    ad_datafmt # (
+      .DATA_WIDTH(12)
+    ) i_datafmt (
+      .clk (adc_clk),
+      .valid (1'b1),
+      .data (adc_data[n*12+11:n*12]),
+      .valid_out (dma_dvalid),
+      .data_out (dma_data[n*16+15:n*16]),
+      .dfmt_enable (adc_dfmt_enable_s),
+      .dfmt_type (adc_dfmt_type_s),
+      .dfmt_se (adc_dfmt_se_s));
   end
   endgenerate
 
@@ -161,8 +161,8 @@ module axi_ad9434_core #(
     .DRP_DISABLE(0),
     .USERPORTS_DISABLE(1),
     .GPIO_DISABLE(1),
-    .START_CODE_DISABLE(1))
-  i_adc_common(
+    .START_CODE_DISABLE(1)
+  ) i_adc_common(
     .mmcm_rst (mmcm_rst),
 
     .adc_clk (adc_clk),
@@ -216,8 +216,8 @@ module axi_ad9434_core #(
     .USERPORTS_DISABLE(1),
     .DATAFORMAT_DISABLE(0),
     .DCFILTER_DISABLE(1),
-    .IQCORRECTION_DISABLE(1))
-  i_adc_channel(
+    .IQCORRECTION_DISABLE(1)
+  ) i_adc_channel(
     .adc_clk (adc_clk),
     .adc_rst (adc_rst),
     .adc_enable (adc_enable),
@@ -265,7 +265,10 @@ module axi_ad9434_core #(
 
   // adc delay control
 
-  up_delay_cntrl #(.DATA_WIDTH(13), .BASE_ADDRESS(6'h02)) i_delay_cntrl (
+  up_delay_cntrl #(
+    .DATA_WIDTH(13),
+    .BASE_ADDRESS(6'h02)
+  ) i_delay_cntrl (
     .delay_clk (delay_clk),
     .delay_rst (delay_rst),
     .delay_locked (delay_locked),

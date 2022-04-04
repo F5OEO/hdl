@@ -149,21 +149,19 @@ module axi_ad9963_if #(
   // device clock interface (receive clock)
 
   BUFGCTRL #(
-      .INIT_OUT(0),
-      .PRESELECT_I0("FALSE"),
-      .PRESELECT_I1("FALSE")
-      )
-  bufgctrl_adc (
-      .O(adc_clk),
-      .CE0(1'b1),
-      .CE1(1'b0),
-      .I0(trx_clk),
-      .I1(1'b0),
-      .IGNORE0(1'b0),
-      .IGNORE1(1'b0),
-      .S0(up_adc_ce),
-      .S1(1'b0)
-      );
+    .INIT_OUT(0),
+    .PRESELECT_I0("FALSE"),
+    .PRESELECT_I1("FALSE")
+  ) bufgctrl_adc (
+    .O(adc_clk),
+    .CE0(1'b1),
+    .CE1(1'b0),
+    .I0(trx_clk),
+    .I1(1'b0),
+    .IGNORE0(1'b0),
+    .IGNORE1(1'b0),
+    .S0(up_adc_ce),
+    .S1(1'b0));
 
   // receive data interface, ibuf -> idelay -> iddr
 
@@ -175,8 +173,8 @@ module axi_ad9963_if #(
     .IODELAY_ENABLE (ADC_IODELAY_ENABLE),
     .IODELAY_CTRL (0),
     .IODELAY_GROUP (IO_DELAY_GROUP),
-    .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY))
-  i_rx_data (
+    .REFCLK_FREQUENCY (DELAY_REFCLK_FREQUENCY)
+  ) i_rx_data (
     .rx_clk (adc_clk),
     .rx_data_in_p (trx_data[l_inst]),
     .rx_data_in_n (1'b0),
@@ -199,8 +197,8 @@ module axi_ad9963_if #(
     .FPGA_TECHNOLOGY (FPGA_TECHNOLOGY),
     .IODELAY_ENABLE (ADC_IODELAY_ENABLE),
     .IODELAY_CTRL (1),
-    .IODELAY_GROUP (IO_DELAY_GROUP))
-  i_rx_iq (
+    .IODELAY_GROUP (IO_DELAY_GROUP)
+  ) i_rx_iq (
     .rx_clk (adc_clk),
     .rx_data_in_p (trx_iq),
     .rx_data_in_n (1'b0),
@@ -216,7 +214,9 @@ module axi_ad9963_if #(
 
   // transmit data interface
 
-  BUFR #(.BUFR_DIVIDE(2)) i_div_clk_buf (
+  BUFR #(
+    .BUFR_DIVIDE(2)
+  ) i_div_clk_buf (
     .CLR (1'b0),
     .CE (1'b1),
     .I (tx_clk),
@@ -226,8 +226,7 @@ module axi_ad9963_if #(
     .INIT_OUT(0),
     .PRESELECT_I0("FALSE"),
     .PRESELECT_I1("FALSE")
-    )
-  bufgctrl_dac (
+  ) bufgctrl_dac (
     .O(dac_clk),
     .CE0(1'b1),
     .CE1(1'b0),
@@ -236,16 +235,15 @@ module axi_ad9963_if #(
     .IGNORE0(1'b0),
     .IGNORE1(1'b0),
     .S0(up_dac_ce),
-    .S1(1'b0)
-    );
+    .S1(1'b0));
 
   generate
   for (l_inst = 0; l_inst <= 11; l_inst = l_inst + 1) begin: g_tx_data
   ODDR #(
     .DDR_CLK_EDGE ("SAME_EDGE"),
     .INIT (1'b0),
-    .SRTYPE ("SYNC"))
-  i_tx_data_oddr (
+    .SRTYPE ("SYNC")
+  ) i_tx_data_oddr (
     .CE (1'b1),
     .R (dac_rst),
     .S (1'b0),
@@ -259,8 +257,8 @@ module axi_ad9963_if #(
   ODDR #(
     .DDR_CLK_EDGE ("SAME_EDGE"),
     .INIT (1'b0),
-    .SRTYPE ("SYNC"))
-  i_tx_data_oddr (
+    .SRTYPE ("SYNC")
+  ) i_tx_data_oddr (
     .CE (1'b1),
     .R (dac_rst),
     .S (1'b0),
@@ -271,5 +269,3 @@ module axi_ad9963_if #(
 
 endmodule
 
-// ***************************************************************************
-// ***************************************************************************
