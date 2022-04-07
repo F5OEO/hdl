@@ -206,6 +206,7 @@ ad_add_interpolation_filter "tx_fir_interpolator" 8 2 1 {61.44} {7.68} \
                              "$ad_hdl_dir/library/util_fir_int/coefile_int.coe"
 ad_ip_instance xlslice interp_slice
 ad_ip_instance util_upack2 tx_upack
+ad_ip_parameter tx_upack CONFIG.NUM_OF_CHANNELS 2
 
 ad_ip_instance axi_dmac axi_ad9361_adc_dma
 ad_ip_parameter axi_ad9361_adc_dma CONFIG.DMA_TYPE_SRC 2
