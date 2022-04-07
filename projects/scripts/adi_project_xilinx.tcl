@@ -387,7 +387,8 @@ proc adi_project_run {project_name} {
     file copy -force $project_name.runs/impl_1/system_top.sysdef $project_name.sdk/system_top_bad_timing.hdf
     return -code error [format "ERROR: Timing Constraints NOT met!"]
   } else {
-    file copy -force $project_name.runs/impl_1/system_top.sysdef $project_name.sdk/system_top.hdf
+    #file copy -force $project_name.runs/impl_1/system_top.sysdef $project_name.sdk/system_top.hdf
+    write_hw_platform -fixed -force  -include_bit -file $project_name.sdk/system_top.xsa
   }
 }
 
