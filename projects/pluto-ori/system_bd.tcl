@@ -303,7 +303,9 @@ ad_connect axi_ad9361/up_dac_gpio_out interp_slice/Din
 ad_connect  tx_fir_interpolator/active interp_slice/Dout
 
 ad_connect  axi_ad9361/l_clk axi_ad9361_adc_dma/fifo_wr_clk
-ad_connect  axi_ad9361/l_clk axi_ad9361_dac_dma/m_axis_aclk
+#ad_connect  axi_ad9361/l_clk axi_ad9361_dac_dma/m_axis_aclk
+ad_connect  sys_cpu_clk axi_ad9361_dac_dma/m_axis_aclk 
+
 ad_connect  cpack/fifo_wr_overflow axi_ad9361/adc_dovf
 
 # interconnects
