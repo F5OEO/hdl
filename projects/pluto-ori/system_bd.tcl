@@ -289,7 +289,7 @@ ad_connect  tx_upack/enable_1  tx_fir_interpolator/enable_out_1
 #ad_connect axi_ad9361/dac_enable_q1 tx_upack/enable_3
 #ad_connect axi_ad9361/dac_data_q1 tx_upack/fifo_rd_data_3
 
-ad_connect tx_upack/s_axis  axi_ad9361_dac_dma/m_axis
+#ad_connect tx_upack/s_axis  axi_ad9361_dac_dma/m_axis
 
 ad_ip_instance util_vector_logic logic_or [list \
   C_OPERATION {or} \
