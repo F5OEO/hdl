@@ -305,7 +305,7 @@ ad_connect  tx_fir_interpolator/active interp_slice/Dout
 
 ad_connect  axi_ad9361/l_clk axi_ad9361_adc_dma/fifo_wr_clk
 #ad_connect  axi_ad9361/l_clk axi_ad9361_dac_dma/m_axis_aclk
-ad_connect  sys_cpu_clk axi_ad9361_dac_dma/m_axis_aclk 
+ad_connect  sys_cpu_clk axi_ad9361_dac_dma/m_axis_aclk
 
 ad_connect  cpack/fifo_wr_overflow axi_ad9361/adc_dovf
 
@@ -316,8 +316,13 @@ ad_cpu_interconnect 0x7C400000 axi_ad9361_adc_dma
 ad_cpu_interconnect 0x7C420000 axi_ad9361_dac_dma
 ad_cpu_interconnect 0x7C430000 axi_spi
 
+# Create instance: rst_axi_ad9361_100M, and set properties
+set rst_axi_ad9361_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_axi_ad9361_100M ]
+ad_connect axi_ad9361_l_clk rst_axi_ad9361_100M/slowest_sync_clk
+ad_connect sys_ps7/fclk_reset0_n rst_axi_ad9361_100m/ext_reset_in
+
 ad_ip_parameter sys_ps7 CONFIG.PCW_USE_S_AXI_HP1 {1}
-ad_connect sys_cpu_clk sys_ps7/S_AXI_HP1_ACLK
+ad_connect axi_ad9361_l_clk sys_ps7/s_axi_hp1_aclk
 ad_connect axi_ad9361_adc_dma/m_dest_axi sys_ps7/S_AXI_HP1
 
 create_bd_addr_seg -range 0x20000000 -offset 0x00000000 \
@@ -335,9 +340,22 @@ create_bd_addr_seg -range 0x20000000 -offset 0x00000000 \
                     SEG_sys_ps7_HP2_DDR_LOWOCM
 
 ad_connect sys_cpu_clk axi_ad9361_dac_dma/m_src_axi_aclk
-ad_connect sys_cpu_clk axi_ad9361_adc_dma/m_dest_axi_aclk
-ad_connect sys_cpu_resetn axi_ad9361_adc_dma/m_dest_axi_aresetn
 ad_connect sys_cpu_resetn axi_ad9361_dac_dma/m_src_axi_aresetn
+ad_connect axi_ad9361_l_clk axi_ad9361_adc_dma/m_dest_axi_aclk
+
+disconnect_bd_net [ get_bd_net sys_cpu_clk ] [ get_bd_pins axi_ad9361_adc_dma/s_axi_aclk ]
+ad_connect axi_ad9361_l_clk axi_ad9361_adc_dma/s_axi_aclk
+
+disconnect_bd_net [ get_bd_net sys_cpu_clk ] [ get_bd_pins axi_cpu_interconnect/m02_aclk ]
+ad_connect axi_ad9361_l_clk axi_cpu_interconnect/m02_aclk
+
+disconnect_bd_net [ get_bd_net sys_cpu_resetn ] [ get_bd_pins axi_cpu_interconnect/m02_aresetn ]
+ad_connect rst_axi_ad9361_100m/peripheral_aresetn axi_cpu_interconnect/m02_aresetn
+
+ad_connect rst_axi_ad9361_100m/peripheral_aresetn axi_ad9361_adc_dma/m_dest_axi_aresetn
+
+disconnect_bd_net [ get_bd_net sys_cpu_resetn ] [ get_bd_pins axi_ad9361_adc_dma/s_axi_aresetn ]
+ad_connect rst_axi_ad9361_100m/peripheral_aresetn axi_ad9361_adc_dma/s_axi_aresetn
 
 # interrupts
 
@@ -361,10 +379,10 @@ add_files ../../dvb_fpga/build/vivado/dvbs2_encoder_wrapper.vhd
      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
-ad_connect sys_cpu_clk dvbs2_encoder_wrapper_0/clk 
+ad_connect sys_cpu_clk dvbs2_encoder_wrapper_0/clk
 ad_ip_parameter dvbs2_encoder_wrapper_0 CONFIG.INPUT_DATA_WIDTH 64
 
-ad_connect sys_cpu_resetn dvbs2_encoder_wrapper_0/rst_n 
+ad_connect sys_cpu_resetn dvbs2_encoder_wrapper_0/rst_n
 ad_cpu_interconnect 0x43C10000 dvbs2_encoder_wrapper_0
 
 ad_connect dvbs2_encoder_wrapper_0/s_axis axi_ad9361_dac_dma/m_axis
@@ -376,9 +394,9 @@ ad_ip_parameter interclk CONFIG.IS_ACLK_ASYNC 1
 ad_ip_parameter interclk CONFIG.HAS_TLAST.VALUE_SRC USER
 ad_ip_parameter interclk CONFIG.HAS_TLAST 0
 
-ad_connect sys_cpu_clk interclk/s_axis_aclk 
+ad_connect sys_cpu_clk interclk/s_axis_aclk
 ad_connect interclk/m_axis_aclk axi_ad9361/l_clk
-ad_connect sys_cpu_resetn interclk/s_axis_aresetn 
+ad_connect sys_cpu_resetn interclk/s_axis_aresetn
 
 set rrc_2interpol [ create_bd_cell -type ip -vlnv xilinx.com:ip:fir_compiler:7.2 rrc_2interpol ]
 set_property -dict [ list \
@@ -411,7 +429,7 @@ set_property -dict [ list \
 
 ad_connect dvbs2_encoder_wrapper_0/m_axis rrc_2interpol/S_AXIS_DATA
 
-ad_connect  sys_cpu_clk rrc_2interpol/aclk 
+ad_connect  sys_cpu_clk rrc_2interpol/aclk
 ad_connect rrc_2interpol/M_AXIS_DATA interclk/S_AXIS
 ad_connect interclk/M_AXIS tx_upack/s_axis
 
