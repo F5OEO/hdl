@@ -200,7 +200,8 @@ ad_ip_parameter axi_ad9361_dac_dma CONFIG.CYCLIC 1
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.AXI_SLICE_SRC 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.AXI_SLICE_DEST 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_2D_TRANSFER 0
-ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_DEST 64
+ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_DEST 32
+ad_ip_parameter axi_ad9361_dac_dma CONFIG.FIFO_SIZE 4
 
 ad_add_interpolation_filter "tx_fir_interpolator" 8 2 1 {61.44} {7.68} \
                              "$ad_hdl_dir/library/util_fir_int/coefile_int.coe"
@@ -362,13 +363,13 @@ add_files ../../dvb_fpga/build/vivado/dvbs2_encoder_wrapper.vhd
      return 1
    }
 ad_connect sys_cpu_clk dvbs2_encoder_wrapper_0/clk 
-ad_ip_parameter dvbs2_encoder_wrapper_0 CONFIG.INPUT_DATA_WIDTH 64
-
+ad_ip_parameter dvbs2_encoder_wrapper_0 CONFIG.INPUT_DATA_WIDTH 32
+ 
 ad_connect sys_cpu_resetn dvbs2_encoder_wrapper_0/rst_n 
 ad_cpu_interconnect 0x43C10000 dvbs2_encoder_wrapper_0
-
+ 
 ad_connect dvbs2_encoder_wrapper_0/s_axis axi_ad9361_dac_dma/m_axis
-
+ 
 ad_ip_instance axis_data_fifo interclk
 ad_ip_parameter interclk CONFIG.FIFO_DEPTH 16
 ad_ip_parameter interclk CONFIG.FIFO_MODE 1
@@ -410,8 +411,10 @@ set_property -dict [ list \
  ] $rrc_2interpol
 
 ad_connect dvbs2_encoder_wrapper_0/m_axis rrc_2interpol/S_AXIS_DATA
-
 ad_connect  sys_cpu_clk rrc_2interpol/aclk 
 ad_connect rrc_2interpol/M_AXIS_DATA interclk/S_AXIS
 ad_connect interclk/M_AXIS tx_upack/s_axis
+
+#without interpol
+#ad_connect dvbs2_encoder_wrapper_0/m_axis interclk/S_AXIS
 
