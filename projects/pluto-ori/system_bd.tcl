@@ -201,7 +201,8 @@ ad_ip_parameter axi_ad9361_dac_dma CONFIG.AXI_SLICE_SRC 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.AXI_SLICE_DEST 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_2D_TRANSFER 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_DEST 32
-ad_ip_parameter axi_ad9361_dac_dma CONFIG.FIFO_SIZE 4
+ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_SRC 64
+ad_ip_parameter axi_ad9361_dac_dma CONFIG.FIFO_SIZE 2
 
 ad_add_interpolation_filter "tx_fir_interpolator" 8 2 1 {61.44} {7.68} \
                              "$ad_hdl_dir/library/util_fir_int/coefile_int.coe"
@@ -348,7 +349,7 @@ ad_cpu_interrupt ps-11 mb-11 axi_spi/ip2intc_irpt
 
 
 # ===================================== DVB MODULATOR ===============================
-
+ 
 source ../../dvb_fpga/build/vivado/add_dvbs2_files.tcl
 add_files ../../dvb_fpga/build/vivado/dvbs2_encoder_wrapper.vhd
 
@@ -365,7 +366,14 @@ add_files ../../dvb_fpga/build/vivado/dvbs2_encoder_wrapper.vhd
 ad_connect sys_cpu_clk dvbs2_encoder_wrapper_0/clk 
 ad_ip_parameter dvbs2_encoder_wrapper_0 CONFIG.INPUT_DATA_WIDTH 32
  
-ad_connect sys_cpu_resetn dvbs2_encoder_wrapper_0/rst_n 
+#ad_connect sys_cpu_resetn dvbs2_encoder_wrapper_0/rst_n 
+#Attache reset to gpio dac bit 1
+ad_ip_instance xlslice reset_slice
+ad_ip_parameter reset_slice CONFIG.DIN_FROM 1
+ad_ip_parameter reset_slice CONFIG.DIN_TO 1
+ad_connect reset_slice/Dout dvbs2_encoder_wrapper_0/rst_n
+ad_connect axi_ad9361/up_dac_gpio_out reset_slice/Din
+ 
 ad_cpu_interconnect 0x43C10000 dvbs2_encoder_wrapper_0
  
 ad_connect dvbs2_encoder_wrapper_0/s_axis axi_ad9361_dac_dma/m_axis
