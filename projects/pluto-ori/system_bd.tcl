@@ -201,7 +201,7 @@ ad_ip_parameter axi_ad9361_dac_dma CONFIG.AXI_SLICE_SRC 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.AXI_SLICE_DEST 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_2D_TRANSFER 0
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_DEST 32
-ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_SRC 64
+ad_ip_parameter axi_ad9361_dac_dma CONFIG.DMA_DATA_WIDTH_SRC 32
 ad_ip_parameter axi_ad9361_dac_dma CONFIG.FIFO_SIZE 2
 
 ad_add_interpolation_filter "tx_fir_interpolator" 8 2 1 {61.44} {7.68} \
@@ -220,7 +220,7 @@ ad_ip_parameter axi_ad9361_adc_dma CONFIG.AXI_SLICE_DEST 0
 ad_ip_parameter axi_ad9361_adc_dma CONFIG.DMA_2D_TRANSFER 0
 ad_ip_parameter axi_ad9361_adc_dma CONFIG.DMA_DATA_WIDTH_SRC 64
 
-ad_add_decimation_filter "rx_fir_decimator" 8 2 1 {61.44} {61.44} \
+#ad_add_decimation_filter "rx_fir_decimator" 8 2 1 {61.44} {61.44} \
                          "$ad_hdl_dir/library/util_fir_int/coefile_int.coe"
 ad_ip_instance xlslice decim_slice
 ad_ip_instance util_cpack2 cpack
@@ -242,14 +242,14 @@ ad_connect  axi_ad9361/tdd_sync GND
 ad_connect  sys_200m_clk axi_ad9361/delay_clk
 ad_connect  axi_ad9361/l_clk axi_ad9361/clk
 
-ad_connect axi_ad9361/l_clk rx_fir_decimator/aclk
+#ad_connect axi_ad9361/l_clk rx_fir_decimator/aclk
 
-ad_connect axi_ad9361/adc_valid_i0 rx_fir_decimator/valid_in_0
-ad_connect axi_ad9361/adc_enable_i0 rx_fir_decimator/enable_in_0
-ad_connect axi_ad9361/adc_data_i0 rx_fir_decimator/data_in_0
-ad_connect axi_ad9361/adc_valid_q0 rx_fir_decimator/valid_in_1
-ad_connect axi_ad9361/adc_enable_q0 rx_fir_decimator/enable_in_1
-ad_connect axi_ad9361/adc_data_q0 rx_fir_decimator/data_in_1
+#ad_connect axi_ad9361/adc_valid_i0 rx_fir_decimator/valid_in_0
+#ad_connect axi_ad9361/adc_enable_i0 rx_fir_decimator/enable_in_0
+#ad_connect axi_ad9361/adc_data_i0 rx_fir_decimator/data_in_0
+#ad_connect axi_ad9361/adc_valid_q0 rx_fir_decimator/valid_in_1
+#ad_connect axi_ad9361/adc_enable_q0 rx_fir_decimator/enable_in_1
+#ad_connect axi_ad9361/adc_data_q0 rx_fir_decimator/data_in_1
 
 ad_connect axi_ad9361/l_clk cpack/clk
 ad_connect axi_ad9361/rst cpack/reset
@@ -259,16 +259,23 @@ ad_connect axi_ad9361/adc_data_i1 cpack/fifo_wr_data_2
 ad_connect axi_ad9361/adc_enable_q1 cpack/enable_3
 ad_connect axi_ad9361/adc_data_q1 cpack/fifo_wr_data_3
 
-ad_connect cpack/enable_0 rx_fir_decimator/enable_out_0
-ad_connect cpack/enable_1 rx_fir_decimator/enable_out_1
-ad_connect cpack/fifo_wr_data_0 rx_fir_decimator/data_out_0
-ad_connect cpack/fifo_wr_data_1 rx_fir_decimator/data_out_1
-ad_connect rx_fir_decimator/valid_out_0 cpack/fifo_wr_en
+#ad_connect cpack/enable_0 rx_fir_decimator/enable_out_0
+#ad_connect cpack/enable_1 rx_fir_decimator/enable_out_1
+#ad_connect cpack/fifo_wr_data_0 rx_fir_decimator/data_out_0
+#ad_connect cpack/fifo_wr_data_1 rx_fir_decimator/data_out_1
+#ad_connect rx_fir_decimator/valid_out_0 cpack/fifo_wr_en
 
 ad_connect axi_ad9361_adc_dma/fifo_wr cpack/packed_fifo_wr
 ad_connect axi_ad9361/up_adc_gpio_out decim_slice/Din
-ad_connect rx_fir_decimator/active decim_slice/Dout
+#ad_connect rx_fir_decimator/active decim_slice/Dout
 
+# --------- IF NO DECIMATOR ------------
+ad_connect axi_ad9361/adc_valid_i0 cpack/fifo_wr_en
+ad_connect axi_ad9361/adc_enable_i0 cpack/enable_0
+ad_connect axi_ad9361/adc_data_i0 cpack/fifo_wr_data_0
+ad_connect axi_ad9361/adc_enable_q0 cpack/enable_1
+ad_connect axi_ad9361/adc_data_q0 cpack/fifo_wr_data_1
+# -----------------------------------------
 ad_connect axi_ad9361/l_clk tx_fir_interpolator/aclk
 
 ad_connect axi_ad9361/dac_enable_i0 tx_fir_interpolator/dac_enable_0
@@ -328,6 +335,7 @@ create_bd_addr_seg -range 0x20000000 -offset 0x00000000 \
                     SEG_sys_ps7_HP1_DDR_LOWOCM
 
 ad_ip_parameter sys_ps7 CONFIG.PCW_USE_S_AXI_HP2 {1}
+ad_ip_parameter sys_ps7 CONFIG.PCW_S_AXI_HP2_DATA_WIDTH {32}
 ad_connect sys_cpu_clk sys_ps7/S_AXI_HP2_ACLK
 ad_connect axi_ad9361_dac_dma/m_src_axi sys_ps7/S_AXI_HP2
 
@@ -349,7 +357,26 @@ ad_cpu_interrupt ps-11 mb-11 axi_spi/ip2intc_irpt
 
 
 # ===================================== DVB MODULATOR ===============================
- 
+# SWITCH SPLIT SOURCE
+ad_ip_instance axis_switch switchsrc
+ad_ip_parameter switchsrc CONFIG.ROUTING_MODE 1
+ad_ip_parameter switchsrc CONFIG.NUM_SI 1
+ad_ip_parameter switchsrc CONFIG.NUM_MI 2
+ad_connect sys_cpu_clk switchsrc/aclk 
+ad_connect sys_cpu_resetn switchsrc/aresetn
+ad_connect axi_ad9361_dac_dma/m_axis switchsrc/S00_AXIS
+ad_cpu_interconnect 0x43C00000 switchsrc
+
+# SWITCH SPLIT DEST
+ad_ip_instance axis_switch switchdest
+ad_ip_parameter switchdest CONFIG.ROUTING_MODE 1
+ad_ip_parameter switchdest CONFIG.NUM_SI 2
+ad_ip_parameter switchdest CONFIG.NUM_MI 1
+ad_connect sys_cpu_clk switchdest/aclk 
+ad_connect sys_cpu_resetn switchdest/aresetn
+ad_cpu_interconnect 0x43C20000 switchdest
+
+
 source ../../dvb_fpga/build/vivado/add_dvbs2_files.tcl
 add_files ../../dvb_fpga/build/vivado/dvbs2_encoder_wrapper.vhd
 
@@ -376,7 +403,7 @@ ad_connect axi_ad9361/up_dac_gpio_out reset_slice/Din
  
 ad_cpu_interconnect 0x43C10000 dvbs2_encoder_wrapper_0
  
-ad_connect dvbs2_encoder_wrapper_0/s_axis axi_ad9361_dac_dma/m_axis
+ad_connect dvbs2_encoder_wrapper_0/s_axis switchsrc/M00_AXIS
  
 ad_ip_instance axis_data_fifo interclk
 ad_ip_parameter interclk CONFIG.FIFO_DEPTH 16
@@ -417,12 +444,18 @@ set_property -dict [ list \
    CONFIG.Sample_Frequency {15.36} \
    CONFIG.Zero_Pack_Factor {1} \
  ] $rrc_2interpol
-
-ad_connect dvbs2_encoder_wrapper_0/m_axis rrc_2interpol/S_AXIS_DATA
 ad_connect  sys_cpu_clk rrc_2interpol/aclk 
-ad_connect rrc_2interpol/M_AXIS_DATA interclk/S_AXIS
+# ad_connect dvbs2_encoder_wrapper_0/m_axis switchdest/S00_AXIS
+
+ ad_connect dvbs2_encoder_wrapper_0/m_axis rrc_2interpol/S_AXIS_DATA
+ad_connect rrc_2interpol/M_AXIS_DATA switchdest/S00_AXIS
 ad_connect interclk/M_AXIS tx_upack/s_axis
 
+
+# PLug the switches
+
+ad_connect switchsrc/M01_AXIS switchdest/S01_AXIS
+ad_connect switchdest/M00_AXIS interclk/S_AXIS
 #without interpol
 #ad_connect dvbs2_encoder_wrapper_0/m_axis interclk/S_AXIS
 
